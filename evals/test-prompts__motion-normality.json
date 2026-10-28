@@ -1,0 +1,13 @@
+{
+  "skill": "motion-normality-skill",
+  "version": "1.0.0",
+  "test_cases": [
+    {"id": "should-trigger-01", "type": "should_trigger", "prompt": "我持有的恒生电子从32元跌到28.5元，这两天成交量比之前放大了一倍多，这是洗盘还是出货？还能不能拿？", "expected_behavior": "调用 motion-normality-skill，按四维+量价核对判定正常/异常并给离场或持有结论", "notes": "正面：持仓健康检查+量价异动"},
+    {"id": "should-trigger-02", "type": "should_trigger", "prompt": "我的持仓股今天放量创了新高但尾盘回落只收涨2%，上影线很长，我该继续持有吗？", "expected_behavior": "调用 motion-normality-skill，判定危险信号", "notes": "正面：异常波动判定"},
+    {"id": "should-trigger-03", "type": "should_trigger", "prompt": "帮我看看这只股票走势还正常吗：它一直在200日均线上方走升势，但这周跌破了上周的低点，量也没放大。", "expected_behavior": "调用 motion-normality-skill，用走势线/均线/突破确认核对", "notes": "正面：升势中破前低"},
+    {"id": "should-not-trigger-01", "type": "should_not_trigger", "prompt": "帮我分析一下宁德时代的基本面，它的市盈率在行业里算高吗？", "expected_behavior": "基本面问题，不调用本卡（应走 fundamental-check 或路由入口）", "notes": "跨书内混淆诱饵：fundamental-check"},
+    {"id": "should-not-trigger-02", "type": "should_not_trigger", "prompt": "大盘现在是不是牛市？我要不要先清仓观望一下？", "expected_behavior": "大市问题，不调用本卡（应走 market-regime-skill）", "notes": "跨书内混淆诱饵：market-regime-skill"},
+    {"id": "edge-01", "type": "edge_case", "prompt": "股票跌到我的止损价了，但我舍不得卖，总觉得会弹回来，怎么办？", "expected_behavior": "心理执行问题：不调用本卡做走势判定，应转 psych-discipline/sell-trailing-stop-skill 视角", "notes": "边界：纪律执行 vs 走势判定"},
+    {"id": "edge-02", "type": "edge_case", "prompt": "我这只股票涨得挺好的，就是最近没量了，帮我看看是不是要歇一歇？", "expected_behavior": "调用 motion-normality-skill（升势中量能萎缩属正常回调特征判定范围）", "notes": "边界：弱信号也要能接"}
+  ]
+}

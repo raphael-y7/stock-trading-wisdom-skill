@@ -1,0 +1,93 @@
+[
+  {
+    "case_id": "T1-01",
+    "chosen_skill": "motion-normality-skill",
+    "would_trigger": true,
+    "reason": "持仓个股出现放量异动并直接问\"洗盘还是出货、还能不能拿\"，逐字命中该卡触发条件。",
+    "action": "用四维（走势线/支撑阻力/双肩/200天均线）加量价逐项核对恒生电子的运动正常性，判定洗盘或出货并给出持有或离场结论。"
+  },
+  {
+    "case_id": "T1-02",
+    "chosen_skill": "motion-normality-skill",
+    "would_trigger": true,
+    "reason": "持仓股放量长上影、冲高回落问该不该继续持有，正是该卡列举的异动场景。",
+    "action": "按四维加量价核对升势是否仍正常，给出持有安坐或危险信号离场的判定。"
+  },
+  {
+    "case_id": "T1-03",
+    "chosen_skill": "motion-normality-skill",
+    "would_trigger": true,
+    "reason": "用户直接问\"走势还正常吗\"并给出200天均线与跌破上周低点的图形量价信息，命中该卡核心判定。",
+    "action": "以200天均线和支撑为基准核对升势四维，判定跌破上周低点是否构成危险信号并给出持有或离场。"
+  },
+  {
+    "case_id": "T1-04",
+    "chosen_skill": "stock-trading-wisdom-skill-router",
+    "would_trigger": true,
+    "reason": "市盈率/基本面属书中\"公司基本面快查\"意图，候选能力卡均不承接（motion-normality-skill 明确排除纯基本面查询），应由 router 路由。",
+    "action": "调用 router 入口并分发到 fundamental-check 能力卡做基本面与估值快查。"
+  },
+  {
+    "case_id": "T1-05",
+    "chosen_skill": "market-regime-skill",
+    "would_trigger": true,
+    "reason": "\"大盘是不是牛市、要不要清仓观望\"逐字命中大市方向与入场许可的触发条件。",
+    "action": "把指数当一只股票判阶段，结合总量背离与情绪逆向，输出牛熊方向与清仓或持有的入场许可。"
+  },
+  {
+    "case_id": "T1-06",
+    "chosen_skill": "sell-trailing-stop-skill",
+    "would_trigger": true,
+    "reason": "已到止损价纠结要不要执行卖出，属卖点执行与\"截短亏损\"范畴（纪律自检卡不在候选内，本卡最贴合）。",
+    "action": "按\"跌破止损价即离场、截短亏损让利润奔跑\"给出卖出执行决策与重新介入条件。"
+  },
+  {
+    "case_id": "T1-07",
+    "chosen_skill": "motion-normality-skill",
+    "would_trigger": true,
+    "reason": "持有个股问\"是不是要歇一歇\"即走势正常性之问，缩量属量价核对范围。",
+    "action": "核对量价与四维，判定缩量是正常整理蓄势还是运动转弱信号并给出持有结论。"
+  },
+  {
+    "case_id": "T1-08",
+    "chosen_skill": "critical-point-buy-skill",
+    "would_trigger": true,
+    "reason": "放量突破平台上沿问\"能不能追、止损设在哪\"，正是临界点买点卡的标准场景。",
+    "action": "输出成对方案：以62元平台上沿为触发价的买点、止损价与失败判据（止损不超过20%硬顶）。"
+  },
+  {
+    "case_id": "T1-09",
+    "chosen_skill": "critical-point-buy-skill",
+    "would_trigger": true,
+    "reason": "想买入并问初始止损定在哪，买点与止损点成对输出归该卡（sell-trailing-stop-skill 明确不用于初始止损设定）。",
+    "action": "以118元前波高点为参照给出触发价+止损价+失败判据的买入方案。"
+  },
+  {
+    "case_id": "T1-10",
+    "chosen_skill": "critical-point-buy-skill",
+    "would_trigger": true,
+    "reason": "\"跌穿支撑又放量收回\"即该卡明确列出的假跌破场景，且用户直接问算不算买点。",
+    "action": "按假跌破买点核对并输出触发价+止损价+失败判据。"
+  },
+  {
+    "case_id": "T1-11",
+    "chosen_skill": "stock-trading-wisdom-skill-router",
+    "would_trigger": true,
+    "reason": "定投宽基指数属书中\"回报预期与配置\"意图，market-regime-skill 自我排除配置决策，候选卡无对应，由 router 承接。",
+    "action": "调用 router 入口并分发到 return-allocation 能力卡回答配置与入市时机问题。"
+  },
+  {
+    "case_id": "T1-12",
+    "chosen_skill": "money-management-skill",
+    "would_trigger": true,
+    "reason": "被套后问要不要补仓摊低成本，是该卡明文覆盖的场景（\"想补仓摊低成本……严禁向下摊平\"）。",
+    "action": "按本金分份、严禁向下摊平与睡眠测试输出仓位计划，大概率给出不再补仓的结论。"
+  },
+  {
+    "case_id": "T1-13",
+    "chosen_skill": "stock-picking-skill",
+    "would_trigger": true,
+    "reason": "核心请求\"买哪只\"属选股意图；critical-point-buy-skill 明确不适用\"问买什么股票、下注多大仓位\"，全仓梭哈部分还应联动 money-management-skill。",
+    "action": "按\"大市→牛劲类别→龙头/特别小弟\"三步过滤给出选股结论，同时提示5万全仓违背资金管理规则。"
+  }
+]

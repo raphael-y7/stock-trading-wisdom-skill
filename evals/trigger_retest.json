@@ -1,0 +1,20 @@
+[
+  {
+    "case_id": "R1",
+    "chosen_skill": "stock-trading-wisdom-skill-router",
+    "route_target": "money-management-skill",
+    "reason": "问的是'该不该融资加杠杆'，本质是下注大小/风险放大（两融=杠杆放大仓位倍数），落入'仓位与下注'能力域；但 money-management-skill 的显式触发词只有'买多少/几成仓/分批/加仓/补仓摊低/重仓睡不着'，未覆盖'杠杆/两融/借钱'措辞，且用户未指名子技能，另有'朋友翻了三倍'的羡慕情绪可牵涉 psych-discipline——属多候选歧义意图，应由 router 承接后主分发 money-management-skill（下注规模+睡眠测试），次提示 psych-discipline。"
+  },
+  {
+    "case_id": "R2",
+    "chosen_skill": "stock-trading-wisdom-skill-router",
+    "route_target": "cycle-phase",
+    "reason": "单只个股'低位横盘两年算不算蓄劲期'是月线级四阶段定位问题，与 cycle-phase A2 语言信号'横盘很久了算不算蓄劲'逐字命中；用户还点名'按书里的说法'，命中 router 的书名触发。注意 regression 陷阱：stock-picking-skill 触发词表里也有'蓄劲期'，但那是选股排序语境（哪只更值得买），本条不涉及多股比较，应分发 cycle-phase 而非 stock-picking-skill。cycle-phase 未编译为独立入口，由 router 承接。"
+  },
+  {
+    "case_id": "R3",
+    "chosen_skill": "stock-trading-wisdom-skill-router",
+    "route_target": "stock-picking-skill",
+    "reason": "复合意图：①'5万全仓梭哈搏一把翻身'=下注规模问题→money-management-skill；②'买哪只'=选股三步→stock-picking-skill；③'临界点最好'=入场点→critical-point-buy-skill。用户未指名任何子技能且意图跨三卡，router 是唯一能一次承接的激活对象。主分发 stock-picking-skill（直接回答'买哪只'，选股先于入场），stock-picking-skill 边界注明点位问题转 critical-point-buy-skill；全仓梭哈违反'本金分份/严禁重仓'，须并行给 money-management-skill 的仓位合规结论，不可只答选股。"
+  }
+]

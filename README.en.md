@@ -111,7 +111,7 @@ These skills were generated with the RIA-TV++ pipeline of **[cangjie-skill](http
 
 ## Testing and verification
 
-This repository ships the generation-time test material: `evals/` holds 8 trigger suites (one per standalone skill plus one for router reachability, 52 cases in total), the per-item scoring report `test-results.md`, and the regression retest record `trigger_retest.json` cited by that report.
+The test material ships inside each skill directory: the 8 entry directories under `pack/` and the `single/` entry each carry a `test-prompts.json` (9 files, 61 cases in total; the `single/` entry and the router entry hold two copies of the same suite, 52 distinct cases). The per-item scoring report is `test-results.md` at the repository root.
 
 - **Trigger blind tests**: the report records 45 cases in the first round, 42 as expected and 3 with trigger ambiguity; all 3 were fixed by changing the skill rather than the test (description and keywords, adjacent-capability distinctions), and after regression 45/45 matched expectations, with zero decoy tolerance failures (every in-book confusion decoy was either correctly avoided or correctly routed)
 - **Execution tests**: 13 task scenarios including 4 boundary / missing-input cases, 13/13 passed; every missing-input case asked for the data instead of guessing
@@ -122,123 +122,31 @@ This repository ships the generation-time test material: `evals/` holds 8 trigge
 
 ```text
 stock-trading-wisdom-skill/
-├── README.md                          ← Chinese version
-├── README.en.md                       ← you are reading this
-├── LICENSE                            ← MIT
-├── BOOK_OVERVIEW.md                   ← whole-book understanding (Adler four steps, stage 0)
-├── verified.md                        ← triple-verification results for the 14 units
-├── INDEX.md                           ← skill map: capability table, dependencies, load order
-├── TEST_SUMMARY.md                    ← Stage 4 stress-test summary (scope / checks / results)
-├── CANGJIE_ADAPTATION.md              ← Cangjie adaptation note (text state / goals / evidence rules / limits)
-├── candidates/                        ← stage 1 candidate extraction (unfiltered raw candidates)
-│   ├── frameworks.md                  ← framework candidates (44)
-│   ├── principles.md                  ← principle candidates (146)
-│   ├── cases.md                       ← case candidates (99)
-│   ├── counter_examples.md            ← counter-example candidates (51)
-│   └── glossary.md                    ← glossary candidates (51)
-├── bundle/                            ← distillation artefacts (card sources + verification)
-│   ├── verified.yaml                  ← authoritative definition of the 14 capabilities
-│   ├── cards/                         ← 14 capability card sources
-│   │   ├── bubble-mania-skill.md
-│   │   ├── critical-point-buy-skill.md
-│   │   ├── cycle-phase-skill.md
-│   │   ├── fundamental-check-skill.md
-│   │   ├── ma250-system-skill.md
-│   │   ├── manipulation-signs-skill.md
-│   │   ├── market-regime-skill.md
-│   │   ├── money-management-skill.md
-│   │   ├── motion-normality-skill.md
-│   │   ├── psych-discipline-skill.md
-│   │   ├── return-allocation-skill.md
-│   │   ├── sell-trailing-stop-skill.md
-│   │   ├── stage-selftest-skill.md
-│   │   └── stock-picking-skill.md
-│   └── book/
-│       ├── glossary.md
-│       └── overview.md
-├── single/                            ← single-entry mode
-│   └── stock-trading-wisdom-skill/
-│       ├── SKILL.md                   ← entry: triggers + routing table + load rules
-│       ├── BUILD_MANIFEST.json        ← build manifest with file hashes
-│       ├── test-prompts.json          ← entry test suite (9 routing-reachability cases)
-│       └── references/
-│           ├── overview.md            ← whole-book overview
-│           ├── capability-index.md    ← full intent and keyword index
-│           ├── cheatsheet.md          ← decision rules at a glance
-│           ├── glossary.md            ← glossary
-│           └── capabilities/          ← 14 capability cards (content mirrors bundle/cards)
-│               ├── bubble-mania-skill.md
-│               ├── critical-point-buy-skill.md
-│               ├── cycle-phase.md
-│               ├── fundamental-check.md
-│               ├── ma250-system.md
-│               ├── manipulation-signs.md
-│               ├── market-regime-skill.md
-│               ├── money-management-skill.md
-│               ├── motion-normality-skill.md
-│               ├── psych-discipline.md
-│               ├── return-allocation.md
-│               ├── sell-trailing-stop-skill.md
-│               ├── stage-selftest.md
-│               └── stock-picking-skill.md
-├── pack/                              ← multi-entry mode (compact pack)
-│   ├── BUILD_MANIFEST.json
-│   ├── capability-destinations.json   ← destination table for the 14 capabilities
-│   ├── stock-trading-wisdom-skill-router/
-│   │   ├── SKILL.md                   ← source router entry
-│   │   ├── test-prompts.json          ← routing-reachability suite (9 cases)
-│   │   └── references/                ← the four index files + 14 cards, for internal use
-│   │       ├── overview.md
-│   │       ├── capability-index.md
-│   │       ├── cheatsheet.md
-│   │       ├── glossary.md
-│   │       └── capabilities/
-│   │           ├── bubble-mania-skill.md
-│   │           ├── critical-point-buy-skill.md
-│   │           ├── cycle-phase.md
-│   │           ├── fundamental-check.md
-│   │           ├── ma250-system.md
-│   │           ├── manipulation-signs.md
-│   │           ├── market-regime-skill.md
-│   │           ├── money-management-skill.md
-│   │           ├── motion-normality-skill.md
-│   │           ├── psych-discipline.md
-│   │           ├── return-allocation.md
-│   │           ├── sell-trailing-stop-skill.md
-│   │           ├── stage-selftest.md
-│   │           └── stock-picking-skill.md
-│   ├── motion-normality-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 7 cases
-│   ├── critical-point-buy-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 6 cases
-│   ├── sell-trailing-stop-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 6 cases
-│   ├── money-management-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 6 cases
-│   ├── stock-picking-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 6 cases
-│   ├── market-regime-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 6 cases
-│   └── bubble-mania-skill/
-│       ├── SKILL.md
-│       └── test-prompts.json          ← 6 cases
-└── evals/                             ← trigger suites and test results
-    ├── test-results.md                ← per-item scoring and fix log
-    ├── trigger_retest.json            ← regression retest after fixes
-    ├── test-prompts__motion-normality.json
-    ├── test-prompts__critical-point-buy.json
-    ├── test-prompts__sell-trailing-stop.json
-    ├── test-prompts__money-management.json
-    ├── test-prompts__stock-picking.json
-    ├── test-prompts__market-regime.json
-    ├── test-prompts__bubble-mania.json
-    └── test-prompts__stock-trading-wisdom-skill-router.json
+├── README.md              ← Chinese version
+├── README.en.md           ← you are reading this
+├── LICENSE                ← MIT
+├── BOOK_OVERVIEW.md       ← stage 0 output: Adler whole-book analysis
+├── INDEX.md               ← stage 3 output: skill map + dependencies
+├── verified.md            ← 14 units that passed triple verification
+├── TEST_SUMMARY.md        ← stage 4 output: stress-test summary
+├── CANGJIE_ADAPTATION.md  ← cangjie adaptation notes
+├── GITHUB_REPO.md         ← repository metadata
+├── test-results.md        ← test result records
+├── candidates/            ← stage 1 output: raw candidate pool
+│   ├── frameworks.md      ← framework and method candidates
+│   ├── principles.md      ← principle / rule / calculation candidates
+│   ├── cases.md           ← case candidates from the book
+│   ├── counter-examples.md← counter-example and boundary candidates
+│   └── glossary.md        ← terminology candidates
+├── rejected/              ← stage 1.5 output: rejected units + reasons
+├── bundle/                ← compilation source of truth
+│   ├── verified.yaml      ← capability metadata, criteria and destinations
+│   ├── cards/             ← capability card sources (six sections)
+│   └── book/              ← overview.md + glossary.md
+├── single/                ← single-mode build (one entry + all capability cards)
+│   └── stock-trading-wisdom-skill/SKILL.md  ← entry: triggers + routing table + loading rules
+└── pack/                  ← pack-mode build (one router + 7 promoted skills)
+    └── */SKILL.md         ← 8 skills, each shipping a test-prompts.json
 ```
 
 ## How to use

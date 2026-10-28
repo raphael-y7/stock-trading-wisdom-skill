@@ -111,7 +111,7 @@ pack 里被晋级为独立 skill 的 7 张卡：
 
 ## 测试与验证
 
-本仓库连生成过程的测试材料一起发布：`evals/` 下有 8 套触发用例（7 张独立 skill 各一套 + 路由可达性一套，共 52 条）、逐项评分报告 `test-results.md`，以及报告引用的回归复测记录 `trigger_retest.json`。
+测试材料随 skill 目录一起发布：`pack/` 下 8 个入口目录与 `single/` 入口各带一份 `test-prompts.json`（共 9 份、61 条用例；`single/` 入口与路由入口是同一份用例的两个副本，去重后 52 条），逐项评分报告见根目录 `test-results.md`。
 
 - **触发盲测**：报告口径首轮 45 例中 42 例符合预期、3 例触发歧义；3 例均按"修 skill 不修测试"处理（补 description 与 keywords、补相邻区分条目），回归复测后 45/45 全部符合预期，诱饵容错 0（跨书内混淆诱饵全部正确避开或经路由分发）
 - **执行测试**：13 个任务场景（含 4 个边界/缺输入场景），13/13 通过；缺输入时全部先询问补齐，未静默猜值
@@ -122,123 +122,31 @@ pack 里被晋级为独立 skill 的 7 张卡：
 
 ```text
 stock-trading-wisdom-skill/
-├── README.md                          ← 你正在看的
-├── README.en.md                       ← English version
-├── LICENSE                            ← MIT
-├── BOOK_OVERVIEW.md                   ← 整书理解（Adler 四步拆解，阶段 0 产出）
-├── verified.md                        ← 14 个能力单元的三重验证结论
-├── INDEX.md                           ← skill 地图：能力总表、依赖关系、加载顺序
-├── TEST_SUMMARY.md                    ← Stage 4 压力测试摘要（范围/结构检查/结果）
-├── CANGJIE_ADAPTATION.md              ← 仓颉适配说明（文本状态/蒸馏目标/证据规则/使用边界）
-├── candidates/                        ← 阶段 1 候选提取材料（未筛选的原始候选）
-│   ├── frameworks.md                  ← 框架候选（44 条）
-│   ├── principles.md                  ← 原则候选（146 条）
-│   ├── cases.md                       ← 案例候选（99 条）
-│   ├── counter_examples.md            ← 反例候选（51 条）
-│   └── glossary.md                    ← 术语候选（51 条）
-├── bundle/                            ← 蒸馏中间产物（能力卡原稿 + 验证清单）
-│   ├── verified.yaml                  ← 14 条 capability 的权威定义
-│   ├── cards/                         ← 14 张能力卡原稿
-│   │   ├── bubble-mania-skill.md
-│   │   ├── critical-point-buy-skill.md
-│   │   ├── cycle-phase-skill.md
-│   │   ├── fundamental-check-skill.md
-│   │   ├── ma250-system-skill.md
-│   │   ├── manipulation-signs-skill.md
-│   │   ├── market-regime-skill.md
-│   │   ├── money-management-skill.md
-│   │   ├── motion-normality-skill.md
-│   │   ├── psych-discipline-skill.md
-│   │   ├── return-allocation-skill.md
-│   │   ├── sell-trailing-stop-skill.md
-│   │   ├── stage-selftest-skill.md
-│   │   └── stock-picking-skill.md
-│   └── book/
-│       ├── glossary.md
-│       └── overview.md
-├── single/                            ← 单一入口模式
-│   └── stock-trading-wisdom-skill/
-│       ├── SKILL.md                   ← 入口：触发条件 + 路由表 + 加载规则
-│       ├── BUILD_MANIFEST.json        ← 编译清单与文件哈希
-│       ├── test-prompts.json          ← 入口用例（路由可达性 9 条）
-│       └── references/
-│           ├── overview.md            ← 整书概览
-│           ├── capability-index.md    ← 完整意图与关键词索引
-│           ├── cheatsheet.md          ← 决策规则速查
-│           ├── glossary.md            ← 术语表
-│           └── capabilities/          ← 14 张能力卡（与 bundle/cards 内容对应）
-│               ├── bubble-mania-skill.md
-│               ├── critical-point-buy-skill.md
-│               ├── cycle-phase.md
-│               ├── fundamental-check.md
-│               ├── ma250-system.md
-│               ├── manipulation-signs.md
-│               ├── market-regime-skill.md
-│               ├── money-management-skill.md
-│               ├── motion-normality-skill.md
-│               ├── psych-discipline.md
-│               ├── return-allocation.md
-│               ├── sell-trailing-stop-skill.md
-│               ├── stage-selftest.md
-│               └── stock-picking-skill.md
-├── pack/                              ← 多入口模式（compact pack）
-│   ├── BUILD_MANIFEST.json
-│   ├── capability-destinations.json   ← 14 条能力的去向表
-│   ├── stock-trading-wisdom-skill-router/
-│   │   ├── SKILL.md                   ← 来源路由入口
-│   │   ├── test-prompts.json          ← 路由可达性用例（9 条）
-│   │   └── references/                ← 索引四件套 + 14 张卡，供 router 内部调用
-│   │       ├── overview.md
-│   │       ├── capability-index.md
-│   │       ├── cheatsheet.md
-│   │       ├── glossary.md
-│   │       └── capabilities/
-│   │           ├── bubble-mania-skill.md
-│   │           ├── critical-point-buy-skill.md
-│   │           ├── cycle-phase.md
-│   │           ├── fundamental-check.md
-│   │           ├── ma250-system.md
-│   │           ├── manipulation-signs.md
-│   │           ├── market-regime-skill.md
-│   │           ├── money-management-skill.md
-│   │           ├── motion-normality-skill.md
-│   │           ├── psych-discipline.md
-│   │           ├── return-allocation.md
-│   │           ├── sell-trailing-stop-skill.md
-│   │           ├── stage-selftest.md
-│   │           └── stock-picking-skill.md
-│   ├── motion-normality-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 7 条用例
-│   ├── critical-point-buy-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 6 条用例
-│   ├── sell-trailing-stop-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 6 条用例
-│   ├── money-management-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 6 条用例
-│   ├── stock-picking-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 6 条用例
-│   ├── market-regime-skill/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json          ← 6 条用例
-│   └── bubble-mania-skill/
-│       ├── SKILL.md
-│       └── test-prompts.json          ← 6 条用例
-└── evals/                             ← 触发用例与测试结果
-    ├── test-results.md                ← 逐项评分与偏差修复记录
-    ├── trigger_retest.json            ← 修复后的回归复测记录
-    ├── test-prompts__motion-normality.json
-    ├── test-prompts__critical-point-buy.json
-    ├── test-prompts__sell-trailing-stop.json
-    ├── test-prompts__money-management.json
-    ├── test-prompts__stock-picking.json
-    ├── test-prompts__market-regime.json
-    ├── test-prompts__bubble-mania.json
-    └── test-prompts__stock-trading-wisdom-skill-router.json
+├── README.md              ← 你正在看的
+├── README.en.md           ← English version
+├── LICENSE                ← MIT
+├── BOOK_OVERVIEW.md       ← 阶段 0 产出：全书 Adler 分析
+├── INDEX.md               ← 阶段 3 产出：skill 总览 + 依赖关系
+├── verified.md            ← 通过三重验证的 14 个单元
+├── TEST_SUMMARY.md        ← 阶段 4 产出：压力测试摘要
+├── CANGJIE_ADAPTATION.md  ← 仓颉适配说明
+├── GITHUB_REPO.md         ← 仓库元数据
+├── test-results.md        ← 测试结果记录
+├── candidates/            ← 阶段 1 产出：原始候选池
+│   ├── frameworks.md      ← 框架与方法候选
+│   ├── principles.md      ← 原则 / 规则 / 计算候选
+│   ├── cases.md           ← 书中案例候选
+│   ├── counter-examples.md← 反例与边界候选
+│   └── glossary.md        ← 术语候选
+├── rejected/              ← 阶段 1.5 产出：被淘汰的单元 + 原因
+├── bundle/                ← 编译事实源
+│   ├── verified.yaml      ← 能力元数据、判据与去向
+│   ├── cards/             ← 能力卡源文件（六段结构）
+│   └── book/              ← overview.md + glossary.md
+├── single/                ← single 模式（1 个入口 + 全部能力卡）
+│   └── stock-trading-wisdom-skill/SKILL.md  ← 入口：触发 + 路由表 + 加载规则
+└── pack/                  ← pack 模式（1 个路由入口 + 7 个晋级 skill）
+    └── */SKILL.md         ← 8 个 skill，每个附带 test-prompts.json
 ```
 
 ## 如何使用

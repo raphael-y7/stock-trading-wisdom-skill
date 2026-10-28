@@ -249,4 +249,5 @@ All numeric criteria in the book (the 10% and 20% stop bounds, the 1:3 risk-rewa
 
 ## License
 
-[MIT](https://opensource.org/licenses/MIT)
+[MIT](./LICENSE)
+

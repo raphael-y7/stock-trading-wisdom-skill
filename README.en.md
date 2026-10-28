@@ -238,10 +238,8 @@ Ask: "I have a profit on this stock and it just pulled back on light volume — 
 
 ## Sources
 
-- *The Wisdom of Stock Trading: Experience of Making a Living by Trading Stocks on Wall Street (4th Edition)* by Chen Jiangting, China Social Sciences Press, July 2016
-- The first edition was published by SDX Joint Publishing in 1999; chapter 9, "The skillful warrior wins no glorious battles", and the reasonable-return discussion were added in the 2016 reprint
+- *The Wisdom of Stock Trading* by Chen Jiangting
 - Distilled from the whole book, producing 14 capability cards
-- The original cases come from the author's own US-market experience between roughly 1980 and 2005, with observations of the 1990s A-share market (Shenzhen Development, Yuyuan, Junan) mixed in; there is no systematic A-share sample. This skill pack adds adaptation notes wherever T+1, price limits, 100-share lots or unbuyable limit-up days matter
 
 ## Notice
 

@@ -1,4 +1,4 @@
-<h1 align="center">The Wisdom of Stock Trading Skill</h1>
+<h1 align="center">Stock Trading Wisdom Skill</h1>
 
 <p align="center"><a href="README.md">中文</a> | English</p>
 

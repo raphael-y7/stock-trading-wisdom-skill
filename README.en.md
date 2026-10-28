@@ -128,6 +128,14 @@ stock-trading-wisdom-skill/
 ├── BOOK_OVERVIEW.md                   ← whole-book understanding (Adler four steps, stage 0)
 ├── verified.md                        ← triple-verification results for the 14 units
 ├── INDEX.md                           ← skill map: capability table, dependencies, load order
+├── TEST_SUMMARY.md                    ← Stage 4 stress-test summary (scope / checks / results)
+├── CANGJIE_ADAPTATION.md              ← Cangjie adaptation note (text state / goals / evidence rules / limits)
+├── candidates/                        ← stage 1 candidate extraction (unfiltered raw candidates)
+│   ├── frameworks.md                  ← framework candidates (44)
+│   ├── principles.md                  ← principle candidates (146)
+│   ├── cases.md                       ← case candidates (99)
+│   ├── counter_examples.md            ← counter-example candidates (51)
+│   └── glossary.md                    ← glossary candidates (51)
 ├── bundle/                            ← distillation artefacts (card sources + verification)
 │   ├── verified.yaml                  ← authoritative definition of the 14 capabilities
 │   ├── cards/                         ← 14 capability card sources
@@ -152,6 +160,7 @@ stock-trading-wisdom-skill/
 │   └── stock-trading-wisdom-skill/
 │       ├── SKILL.md                   ← entry: triggers + routing table + load rules
 │       ├── BUILD_MANIFEST.json        ← build manifest with file hashes
+│       ├── test-prompts.json          ← entry test suite (9 routing-reachability cases)
 │       └── references/
 │           ├── overview.md            ← whole-book overview
 │           ├── capability-index.md    ← full intent and keyword index
@@ -177,6 +186,7 @@ stock-trading-wisdom-skill/
 │   ├── capability-destinations.json   ← destination table for the 14 capabilities
 │   ├── stock-trading-wisdom-skill-router/
 │   │   ├── SKILL.md                   ← source router entry
+│   │   ├── test-prompts.json          ← routing-reachability suite (9 cases)
 │   │   └── references/                ← the four index files + 14 cards, for internal use
 │   │       ├── overview.md
 │   │       ├── capability-index.md
@@ -198,19 +208,26 @@ stock-trading-wisdom-skill/
 │   │           ├── stage-selftest.md
 │   │           └── stock-picking-skill.md
 │   ├── motion-normality-skill/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json          ← 7 cases
 │   ├── critical-point-buy-skill/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json          ← 6 cases
 │   ├── sell-trailing-stop-skill/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json          ← 6 cases
 │   ├── money-management-skill/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json          ← 6 cases
 │   ├── stock-picking-skill/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json          ← 6 cases
 │   ├── market-regime-skill/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json          ← 6 cases
 │   └── bubble-mania-skill/
-│       └── SKILL.md
+│       ├── SKILL.md
+│       └── test-prompts.json          ← 6 cases
 └── evals/                             ← trigger suites and test results
     ├── test-results.md                ← per-item scoring and fix log
     ├── trigger_retest.json            ← regression retest after fixes

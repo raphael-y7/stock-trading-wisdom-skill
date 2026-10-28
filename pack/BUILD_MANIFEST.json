@@ -1,0 +1,52 @@
+{
+  "tool": "cangjie-tools v2.5.0",
+  "published_hashes": {
+    "bubble-mania-skill\\SKILL.md": "e2e4a4af768e24740da48cc0e3d22c0fa242e00ff89cbffec213b31fae1b2336",
+    "capability-destinations.json": "2a0e2b08a3b32eb38899c388ab69de55fb01b20a6b443604180c3e6e67b5dd8e",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\bubble-mania-skill.md": "736cf1a225b4134dc901fb385529e2609c4c638572fb94368b7ec6206cfa7ab1",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\critical-point-buy-skill.md": "cb06358e484acebddaaafe67d7ef891117e39a96f2978837562370300d9caa07",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\cycle-phase.md": "73143f05676b6d0c070ced7070a0cfb6e44a730e5f02c67d7a64e6bae6b70861",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\fundamental-check.md": "efcfa68e4e5224f5b5156f98bc07f21dd48a7c2bd5b78dc6b0c55cfbd4c52071",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\ma250-system.md": "53e96c288c440cfb5291913721544794da8affe243bd4bff1ca630066bf95695",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\manipulation-signs.md": "578a57903c0b23c8aaeffdba493f55c4e0ed5ea1e11ca49d05518bd109fe08c1",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\market-regime-skill.md": "c91bf438ab022ba600bafed1074a2287dae904eaaff13a658ad39c0fa5e81585",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\money-management-skill.md": "719b6889fdd62834abb58ee6df91d348d60bc0bc3dad2e55d13dff517047ea1e",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\motion-normality-skill.md": "63daba57a6e97f8fa13617e69f30907497e6a2860917d3d5c5ac71f7ee450b63",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\psych-discipline.md": "65e4f639afd415ed01ca8e6e30df7f275cd70cd03786d0136a95be8990a8f5ee",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\return-allocation.md": "c57c52e71b94718d5ccb6d6823e6f7e5366c46e42cf3cd5e2ae51dc74e83a4ca",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\sell-trailing-stop-skill.md": "c5cf0141b1bf77262ae2d4c930fd4e421c962fb77f55abb3f59cb691be1179ad",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\stage-selftest.md": "954ebb0d82f24371bb1550d81ddb1eee2a75a5948dd1f113ebb5e9926e17c440",
+    "stock-trading-wisdom-skill-router\\references\\capabilities\\stock-picking-skill.md": "d06f76a31a203a78a77fa08bcd7b921c691be41e47ce8e4041e5bedfea35d5b5",
+    "stock-trading-wisdom-skill-router\\references\\capability-index.md": "cfdf6e711deb310356d6ed111c78192f64f5c928cf0d2d306ac32a88932dd304",
+    "stock-trading-wisdom-skill-router\\references\\cheatsheet.md": "40b3fe1b925ceba4f9cbf353e350c71961cef3d254eb6133a81b7fbd81e5107a",
+    "stock-trading-wisdom-skill-router\\references\\glossary.md": "bbc470ac6d318b403157ccb1129494c25110f258a8d98babcbdcf19ab50eb522",
+    "stock-trading-wisdom-skill-router\\references\\overview.md": "812fc9c1c3a27deb3510821dd8b9454c1b5b3c1bc84ee454c2ab5a6d5be149a5",
+    "stock-trading-wisdom-skill-router\\SKILL.md": "165273333363445ea046f7d6b174a018aa291ffc0783d1747c28ab4f477571fb",
+    "critical-point-buy-skill\\SKILL.md": "ebfc1c4dcb8e68540fb0563a12d4fd165a3c7c83059225051a0ec0aba0194511",
+    "market-regime-skill\\SKILL.md": "2d6b57ae4ce6ee72139ec72bca099e7e0cf0c078d04f7b85b03c972565c3e490",
+    "money-management-skill\\SKILL.md": "728b7391164b6f1a3e962a9848d654328f9fb8e32731d0ab2cad2eccf2ab6d56",
+    "motion-normality-skill\\SKILL.md": "76e1014c61d13baceee39453ccac8ce48784c90d3bd8e9722dcba26d71775f55",
+    "sell-trailing-stop-skill\\SKILL.md": "dfd0ef4ffb51861ba6c202c817a37571d31da6510f6901627b1fe870a1f6723a",
+    "stock-picking-skill\\SKILL.md": "cfcf77b9e45a8dce91e6afcc4f55a0cf82e2612e19fd92ad6129c176f78d3917"
+  },
+  "note": "update/重编译前比对 published_hashes；检测到本地手改不得静默覆盖",
+  "bundle_id": "bundle.stock-trading-wisdom-skill",
+  "bundle_sha256": "a1828393a0cc3c7e8d168b8e602dc2a5cc635021fea67d4af780490efdd6b00a",
+  "variant": "pack",
+  "run_id": "run-20261024-021116-de6f2d",
+  "decision": {
+    "schema_version": 1,
+    "requested": "pack",
+    "selected": "pack",
+    "decision_policy": "single-first-v1",
+    "skill_budget": 8,
+    "promoted_count": 7,
+    "capability_count": 14,
+    "reasons": [
+      "用户显式选择 pack，auto 决策器不覆盖用户选择"
+    ],
+    "alternative": "single（1 个入口 + 14 张内部能力卡）",
+    "user_confirmed": true,
+    "preserve_strategy_on_update": true
+  }
+}

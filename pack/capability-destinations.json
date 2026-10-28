@@ -1,0 +1,65 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.stock-trading-wisdom-skill",
+  "router_entrypoint": "stock-trading-wisdom-skill-router",
+  "entrypoint_count": 8,
+  "capability_count": 14,
+  "destinations": {
+    "cap.stock-trading-wisdom-skill.motion-normality-skill": {
+      "promoted_to": "motion-normality-skill",
+      "router_view": "stock-trading-wisdom-skill-router/references/capabilities/motion-normality-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.critical-point-buy-skill": {
+      "promoted_to": "critical-point-buy-skill",
+      "router_view": "stock-trading-wisdom-skill-router/references/capabilities/critical-point-buy-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.sell-trailing-stop-skill": {
+      "promoted_to": "sell-trailing-stop-skill",
+      "router_view": "stock-trading-wisdom-skill-router/references/capabilities/sell-trailing-stop-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.money-management-skill": {
+      "promoted_to": "money-management-skill",
+      "router_view": "stock-trading-wisdom-skill-router/references/capabilities/money-management-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.stock-picking-skill": {
+      "promoted_to": "stock-picking-skill",
+      "router_view": "stock-trading-wisdom-skill-router/references/capabilities/stock-picking-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.market-regime-skill": {
+      "promoted_to": "market-regime-skill",
+      "router_view": "stock-trading-wisdom-skill-router/references/capabilities/market-regime-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.bubble-mania-skill": {
+      "promoted_to": "bubble-mania-skill",
+      "router_view": "stock-trading-wisdom-skill-router/references/capabilities/bubble-mania-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.cycle-phase": {
+      "served_by": "stock-trading-wisdom-skill-router",
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/cycle-phase-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.psych-discipline": {
+      "served_by": "stock-trading-wisdom-skill-router",
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/psych-discipline-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.stage-selftest": {
+      "served_by": "stock-trading-wisdom-skill-router",
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/stage-selftest-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.manipulation-signs": {
+      "served_by": "stock-trading-wisdom-skill-router",
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/manipulation-signs-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.return-allocation": {
+      "served_by": "stock-trading-wisdom-skill-router",
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/return-allocation-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.ma250-system": {
+      "served_by": "stock-trading-wisdom-skill-router",
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/ma250-system-skill.md"
+    },
+    "cap.stock-trading-wisdom-skill.fundamental-check": {
+      "served_by": "stock-trading-wisdom-skill-router",
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/fundamental-check-skill.md"
+    }
+  }
+}

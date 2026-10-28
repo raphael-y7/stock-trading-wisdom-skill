@@ -1,0 +1,966 @@
+schema_version: 1
+bundle_id: bundle.stock-trading-wisdom-skill
+book:
+  title: 炒股的智慧：在华尔街炒股为生的体验（第四版）
+  author: 陈江挺
+  source_pack: 中国社会科学出版社 2016.7，ISBN 978-7-5161-7612-2；EPUB 转写稿 books/chaogu_zhihui/合并转写稿.md
+  baseline_tag: '2026-10-23'
+entry:
+  name: stock-trading-wisdom-skill
+  description: '《炒股的智慧》（陈江挺，2016第四版）全书蒸馏：一套以人性与概率为核心的股票交易决策体系。覆盖：股票运动正常性判定（危险信号）、临界点买卖决策、卖点与移动止损、资金管理与仓位、选股三步过滤、大市判定、泡沫识别、周期阶段定位、心理纪律自检、学股阶段自测、合理回报与资产配置、250天线极简系统、基本面快速审视、大户操纵痕迹识别共 14 项能力。适用于辅助 A 股/美股个股与大市的投资分析决策；不用于荐股、预测具体点位或代客下单。Trigger:
+    炒股的智慧、陈江挺、临界点、止损、截短亏损让利润奔跑、败而不倒、久赌必赢、股疯/泡沫、大市。'
+  core_principles:
+  - 败而不倒：保本第一，本金没了游戏结束（快速止损+别一次下注太多）
+  - 炒股是艺术不是科学：只能提高获胜概率（>50%），不能消除不确定性
+  - 截短亏损，让利润奔跑：一见不对即刻止损，有利润让利润从小跑成大
+  - 买卖全在临界点：入场触发价与止损价同时确定，跌回临界点之下即离场
+  - 大市不好时，别买任何股票：用指数当一只股票看它的运动阶段
+  - 市场从来不会错：出错的只有你自己，一有不对即刻认错
+  - 善战者无赫赫之功：分仓对个股风险、轻仓对大市风险，集小胜为大胜
+  out_of_scope:
+  - 预测具体点位、荐股、代客下单或任何实盘执行
+  - 无行情数据（价格/量能/均线）时的纯基本面估值建模
+  - 期货、期权等衍生品的策略设计（书中仅以期货经验佐证股票方法）
+  - 人生理财哲学咨询（见附录《金钱的反思》，属背景参考）
+  stop_conditions:
+  - 用户提供的数据不足以支撑判定（如无任何价格/量能信息）时，先询问补齐，不得静默猜值
+  - 用户要求保证收益、稳赚或内幕消息时，说明本体系为概率框架并拒绝
+  - 分析结论与用户持仓立场冲突时如实输出，不得迎合
+router_entry:
+  name: stock-trading-wisdom-skill-router
+  description: '《炒股的智慧》来源路由入口：按用户意图分发到本书 14 项能力卡。个股走势健康判定→motion-normality-skill；买入临界点→critical-point-buy-skill；卖点与移动止损→sell-trailing-stop-skill；仓位与下注→money-management-skill；选股三步→stock-picking-skill；大盘方向→market-regime-skill；泡沫识别→bubble-mania-skill；周期阶段→cycle-phase；纪律自检→psych-discipline；学股阶段→stage-selftest；回报预期与配置→return-allocation；极简均线系统→ma250-system；公司基本面快查→fundamental-check；做盘痕迹→manipulation-signs；融资/杠杆/两融该不该上→money-management-skill。Trigger:
+    提及《炒股的智慧》/陈江挺/炒股智慧，或以上任一能力意图未指名具体子技能时。'
+promotion_budget: 8
+capabilities:
+- capability_id: cap.stock-trading-wisdom-skill.motion-normality-skill
+  revision: 1
+  status: active
+  slug: motion-normality-skill
+  title: 股票运动正常性判定
+  importance: critical
+  importance_rationale: 命中原书关键任务 t02（判定运动是否正常，作者称"把握股票走势最关键的是判断正常运动"）与 t09（危险信号识别与离场，"见到危险信号，不要三心二意"）；阶段0优先级排序第1位，是一切持有决策的基础——缺此卡则"让利润奔跑"与止损纪律失去统一判定口径（verify_units.md U01 全单元 verified）
+  one_liner: 四维（走势线/支撑阻力/突破确认/200天线）加量价逐项核对，全过=正常持有安坐，任一破坏=危险信号全部离场、日后可重入
+  intents:
+  - 判断当前持仓个股走势是否健康、该不该继续持有
+  - 区分正常回调与出货危险信号（洗盘还是出货）
+  - 持仓异动（放量长上影、暴升回落、跌破支撑/均线）后的离场判定
+  - 危险信号离场后的重入观察
+  keywords:
+  - 正常运动
+  - 危险信号
+  - 量价关系
+  - 走势线
+  - 支撑阻力
+  - 200天线
+  - 洗盘出货
+  - normality check
+  - danger signal
+  - volume-price
+  card: cards/motion-normality-skill.md
+  frontmatter:
+    description: '当用户持有A股个股并问"还能不能拿、要不要卖、走势还正常吗"，或持仓股出现放量长上影、暴升回落、跌破支撑/均线等异动，问"洗盘还是出货"时使用。用四维（走势线/支撑阻力/双肩头肩确认/200天均线）加量价逐项核对判定"正常运动"：全过=持有安坐，任一破坏=危险信号全部离场。不适用于：无图形量价数据只有基本面消息时；问周期阶段定位、指数大市、具体卖点与移动止损设定。Trigger:
+      正常运动/危险信号/破位/洗盘出货/还能拿吗；is this a normal pullback / distribution or washout。
+
+      '
+    tags:
+    - decision
+    - technical-analysis
+    - holding
+  source_evidence:
+  - source_id: src-main-book
+    location: 第二章第二节"技术分析的基本知识·股票的正常运动"；第三章第二节"抓住正常运动中的股票/注意危险信号"（图3-1、图3-2）
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 阶段1.5 U01 全单元 verified（V1来源/V2纸面演练/V3任务增益全过）。独立意图=持仓健康检查；独立契约=四维+量价输入、三选一结论+核对表；可独立运行给出持有/离场结论；被卖点/选股/大市卡复用其"正常性"口径；t02+t09 双任务命中、阶段0优先级第1，五判据全过晋级独立入口。
+  also_read:
+  - cap.stock-trading-wisdom-skill.sell-trailing-stop-skill
+  - cap.stock-trading-wisdom-skill.cycle-phase
+  - cap.stock-trading-wisdom-skill.market-regime-skill
+  - cap.stock-trading-wisdom-skill.manipulation-signs
+- capability_id: cap.stock-trading-wisdom-skill.critical-point-buy-skill
+  revision: 1
+  status: active
+  slug: critical-point-buy-skill
+  title: 临界点买点决策
+  importance: critical
+  importance_rationale: 命中原书关键任务 t03（选买点并同步定止损，"买股票的技巧，全在怎样找临界点上"）；阶段0优先级第2位（与t04并列），是纪律的核心执行件；并承接 t15 假跌破操纵痕迹的买点应用；缺此卡则入场决策无统一格式（触发价+止损价+失败判据三价缺一不可）（verify_units.md U03 全单元 verified）
+  one_liner: 买点=公众重新评估股价的临界点，入场触发与止损价同时确定；五类买点+八要点+止损≤20%硬顶，跌回临界点之下即离场
+  intents:
+  - 判断某个图形突破/回调能否买入（升势破前峰、放量破阻力线、回踩支撑、倒头肩破颈线、假跌破弹回）
+  - 买入前同步确定止损价与失败判据（跌破何价即离场）
+  - 拦截"跌了很多就买""有好消息/专家推荐就买"类入场冲动
+  - 升势A/B点两段建仓的路径安排（A点试探、B点补足）
+  keywords:
+  - 临界点
+  - 买点
+  - 止损点
+  - 突破买入
+  - 假跌破
+  - 阻力线
+  - 支撑线
+  - 倒头肩
+  - critical point
+  - entry point
+  card: cards/critical-point-buy-skill.md
+  frontmatter:
+    description: '当用户问某股"能不能追、买了止损设哪"（放量突破前高/阻力线/颈线、回踩支撑、跌穿支撑又快速收回的假跌破）时使用；也用于拦截"跌了很多就买""有好消息就买"。买点与止损点成对输出：触发价+止损价+失败判据，止损≤20%硬顶。不适用于：只有基本面消息无图形数据时；问买什么股票、下注多大仓位、何时卖出，或只要250日线机械规则。Trigger: 临界点/买点/假突破/假跌破/止损设哪；breakout
+      buy / entry point / where to set stop loss。
+
+      '
+    tags:
+    - decision
+    - entry
+    - technical-analysis
+  source_evidence:
+  - source_id: src-main-book
+    location: 第四章第一节"何时买股票"全节（基本原则/操作技巧/关键:把握临界点，图4-1~4-7）
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 阶段1.5 U03 全单元 verified（V1来源/V2纸面演练/V3任务增益全过）。独立意图=入场触发与止损同步决策；独立契约=前峰前谷/支撑阻力/量能输入，输出三价+八要点核对；可独立运行；与卖点/资金管理/选股/250天线卡互不覆盖；阶段0将其列为最可能晋级独立入口的能力之一，五判据全过晋级。
+  also_read:
+  - cap.stock-trading-wisdom-skill.motion-normality-skill
+  - cap.stock-trading-wisdom-skill.sell-trailing-stop-skill
+  - cap.stock-trading-wisdom-skill.money-management-skill
+  - cap.stock-trading-wisdom-skill.stock-picking-skill
+  - cap.stock-trading-wisdom-skill.ma250-system
+- capability_id: cap.stock-trading-wisdom-skill.sell-trailing-stop-skill
+  revision: 1
+  status: active
+  slug: sell-trailing-stop-skill
+  title: 卖点与移动止损体系
+  importance: critical
+  importance_rationale: 命中原书关键任务t04（选卖点与移动止损）；作者自述"决定何时卖股票较决定何时买股票更为困难"，第四章第二节为全书篇幅最重的实操节；移动止损是"一般不能全时专职炒股人的最常用方法"。缺此卡则"截短亏损让利润奔跑"无执行件，"不赚不卖/卖盈留亏/到价迟疑"三类高频失败（1994-11-02日记：8500美元利润倒亏2000美元）无对策。
+  one_liner: 运动正常就不卖；卖点由六招触发，移动止损沿浪谷只上移不下移、跌穿当前一级即全部离场——截短亏损，让利润奔跑。
+  intents:
+  - 判断持仓个股的卖出时机与卖出价位
+  - 设置并逐级上移移动止损/跟踪止损
+  - 处理浮盈回吐与利润保护（别让利润变亏损）
+  - 识别短期暴升与量增价滞后的兑现时机
+  - 决定卖出后的重新买入条件
+  keywords:
+  - 卖点
+  - 何时卖股票
+  - 止盈
+  - 落袋为安
+  - 移动止损
+  - 跟踪止损
+  - trailing stop
+  - 让利润奔跑
+  - 截短亏损
+  - cut loss short let profit run
+  - 浪谷
+  - 保本第一
+  - 量增价滞
+  - 危险信号
+  - 卖出决策
+  - 重新买入
+  also_read:
+  - cap.stock-trading-wisdom-skill.motion-normality-skill
+  - cap.stock-trading-wisdom-skill.money-management-skill
+  - cap.stock-trading-wisdom-skill.psych-discipline
+  card: cards/sell-trailing-stop-skill.md
+  frontmatter:
+    description: '持有个股后决定卖出时机与卖点时使用：问"什么时候卖/要不要止盈/卖点怎么定/怎么保住利润"，或要求"移动止损/跟踪止损（trailing stop）""跌破某价位就走""沿浪谷上移止损"，或遇短期暴涨、放巨量滞涨想兑现时。产出卖出决策（触发依据+卖出价+仓位动作+重入条件），核心是六招卖点与移动止损A→E——截短亏损，让利润奔跑（cut loss short, let
+      profit run）。不用于：买入决策与初始止损设定（临界点买点卡）、大市判断、资产配置战略、预测最高价或目标价、分钟级短炒。
+
+      '
+    tags:
+    - decision
+    - trading
+    - risk-management
+    - sell-execution
+  source_evidence:
+  - source_id: src-main-book
+    location: 第四章第二节 何时卖股票（含图4-12~4-18视觉转写与小结六招）
+  - source_id: src-main-book
+    location: 第五章第一节 该卖股票的时候要当机立断（1994-11-02日记）；别让利润变成亏损
+  - source_id: src-main-book
+    location: 第三章第一节 赚大钱（运动正常按兵不动）；第三章第二节 注意危险信号；第八章第一节 摸索阶段（止损下移教训）
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 阶段1.5三重验证通过（verify_units.md U04：V1来源/V2纸面演练/V3任务增益全过）。五判据——意图独立（卖点与止损上移是独立用户意图）；契约独立（输入持仓+走势结构，输出卖出决策四字段）；可独立运行（六招+移动止损含判停分支自成闭环）；可复用（适用于任何日线级趋势持仓）；可评测（触发条件与止损路径可纸面复算）。B段已记：A股跳空、六招同时触发无优先级（"危险信号优先"为下游约定非原书规则）。A2相邻区分（motion-normality-skill/critical-point-buy-skill/psych-discipline）为初稿，阶段3回填定稿。
+- capability_id: cap.stock-trading-wisdom-skill.money-management-skill
+  revision: 1
+  status: active
+  slug: money-management-skill
+  title: 资金管理与仓位规则
+  importance: critical
+  importance_rationale: 命中原书关键任务t05（决定下注规模与分仓/加仓）；资金管理是投机原理"败而不倒"的执行层，作者以硬币例（注额从本金1/1000升到1/2改变游戏性质）、亏50%需赚100%、赌场仅1%~2%优势三重论证"胜率×小注=久赌必赢"。缺此卡则保本落空——一次大注或向下摊平即可出局（利物莫一生破产三次、上海石化45→10美元摊平例）。
+  one_liner: 胜算>50%才入场；新手本金分6~8份、至少1:3风险报酬比才投一份、分层下注纸面利润才加码、严禁向下摊平——任何时候不输光。
+  intents:
+  - 计算单笔交易应投入的资金规模与股数
+  - 规划分批建仓与逐级加码序列
+  - 评估风险报酬比是否值得开仓
+  - 决定持股集中度与仓位动态调节（睡眠测试）
+  - 判断能否补仓/摊平
+  keywords:
+  - 资金管理
+  - 仓位
+  - 下注
+  - 买多少
+  - position sizing
+  - money management
+  - 分批建仓
+  - 分层下注
+  - 金字塔加码
+  - 加仓
+  - 补仓
+  - 摊平
+  - 风险报酬比
+  - 久赌必赢
+  - 胜算
+  - 睡眠测试
+  - 持股只数
+  - 单笔上限
+  - 保本
+  - 杠杆
+  - 融资
+  - 两融
+  also_read:
+  - cap.stock-trading-wisdom-skill.critical-point-buy-skill
+  - cap.stock-trading-wisdom-skill.return-allocation
+  - cap.stock-trading-wisdom-skill.sell-trailing-stop-skill
+  card: cards/money-management-skill.md
+  frontmatter:
+    description: '决定单笔交易下多大注、怎么分仓加仓时使用：问"买多少/几成仓/分几批买/什么时候加仓（position sizing / money management）"，或想补仓摊低成本、自评胜算大想重仓、仓位重到睡不着时。按"胜算>50%才入场＋本金分份（新手6~8份）＋至少1:3风险报酬比＋分层下注纸面利润才加码＋严禁向下摊平＋睡眠测试"输出仓位计划（分几批/每批比例/止损额占总资金比）。融资/两融/杠杆炒股该不该上的问题也由本卡承接（按风险-胜算原则与书中反面案例作答，杠杆不放大大势风险）。不用于：买卖位置（临界点买点/卖点卡）、资产配置战略层（该拿多少钱入市/回报预期）、要求凯利类最优仓位公式（原书只有思想与区间规则，无公式）。
+
+      '
+    tags:
+    - decision
+    - money-management-skill
+    - risk-management
+  source_evidence:
+  - source_id: src-main-book
+    location: 第三章第二节 资金管理·怎样在股市下注（亏得起自问、硬币概率例、6~8份、胜算-仓位）
+  - source_id: src-main-book
+    location: 第三章第一节 保本/赚大钱（分层下注1000股例200→400→400、睡眠测试、正常运动加大下注）
+  - source_id: src-main-book
+    location: 第五章第一节 分散风险（5~10份+1:3）、不要向下摊平；2016年再版的话（每手不超本金10%）
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 阶段1.5三重验证通过（verify_units.md U05：V1来源/V2纸面演练/V3任务增益全过；成员p117"25%止损"与第四章20%硬顶冲突单条needs_review，卡片B段并列呈现不擅自统一）。五判据——意图独立（下多大注/怎么分仓是独立意图）；契约独立（输入本金/胜算自评/买入价+止损价/目标参照，输出仓位计划）；可独立运行（资格检查→份数→1:3→分层→组合调节，含判停分支）；可复用（适用于任何标的开仓前）；可评测（份数/比值/最大亏损可复算）。原书未给凯利公式，只有区间规则——如实标注，不补造。份数三口径（6~8份/5~10份/单笔≤10%）并存呈现。A2相邻区分（critical-point-buy-skill/sell-trailing-stop-skill/return-allocation/ma250-system/psych-discipline）为初稿，阶段3回填定稿。
+- capability_id: cap.stock-trading-wisdom-skill.stock-picking-skill
+  revision: 1
+  status: active
+  slug: stock-picking-skill
+  title: 选股三步过滤
+  importance: high
+  importance_rationale: '承接原书关键任务 t06（第四章第一节"选择股票的步骤"+图4-8~4-11）。 决定"资金在胜算最大的时刻投入到胜算最高的股票之中"，是临界点买点执行前的对象筛选闸门； 第一步大市闸门与 market-regime-skill 联动。漏用后果：逆势选股、买牛劲不足的类别、 买高位跌下来积聚套牢盘的"便宜货"，胜算被系统性削低。
+
+    '
+  one_liner: '选股三步过滤——大市不好什么都不买；选牛劲最足的类别；在牛劲足类别中选龙头老大/特别小弟； 同类候选按"低位爬升>高位跌落、蓄劲期长>短、烫三次不再碰"排序。
+
+    '
+  intents:
+  - 决定现在该买什么股票（对象筛选）
+  - 比较哪些板块/类别更强势更值得买
+  - 同板块多只候选股排序或二选一
+  - 判断"跌了很多的便宜股"能不能买
+  - 识别板块内的龙头股
+  keywords:
+  - 选股
+  - 买什么股票
+  - 板块
+  - 类别
+  - 牛劲
+  - 龙头股
+  - 龙头老大
+  - 特别小弟
+  - 蓄劲期
+  - 套牢盘
+  - 低位爬升
+  - 高位跌落
+  - 便宜货
+  - 低价股
+  - 烫三次
+  - 相对强度
+  - stock picking
+  - sector selection
+  - market leader
+  - relative strength
+  also_read:
+  - cap.stock-trading-wisdom-skill.market-regime-skill
+  - cap.stock-trading-wisdom-skill.critical-point-buy-skill
+  - cap.stock-trading-wisdom-skill.fundamental-check
+  card: cards/stock-picking-skill.md
+  frontmatter:
+    description: '用户在问"现在买什么股票""哪个板块更强""同板块两只股选哪只"，或想买"跌了很多的
+
+      便宜股"、又在一只有历史亏损的票上犹豫时使用：按"大市→牛劲类别→龙头/特别小弟"三步
+
+      过滤+套牢盘/蓄劲期排序给出选股结论。不适用于：何时买卖与止损点位（用 critical-point-buy-skill）、
+
+      单公司基本面质量检查（用 fundamental-check）、指数方向判定（用 market-regime-skill——本卡
+
+      第一步引用其结论作输入）。触发词：选股、买什么、板块、类别、牛劲、龙头、蓄劲期、套牢盘、
+
+      便宜货、stock picking、which stock、sector。
+
+      '
+    tags:
+    - decision
+    - stock-selection-skill
+  source_evidence:
+  - source_id: src-main-book
+    location: 第四章第一节（"选择股票的步骤"三步与图4-8~4-11；"形成自己的风格模式"烫三次不再碰）
+  resources: []
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 阶段1.6 晋级门：五判据全过（t06/t07 任务命中、独立意图与契约明确、可独立运行与复用、可写明确评测断言）。原批次元数据遗漏此字段，按 verify_units.md U06/U07 验证结论补录。
+- capability_id: cap.stock-trading-wisdom-skill.market-regime-skill
+  revision: 1
+  status: active
+  slug: market-regime-skill
+  title: 大市判定清单
+  importance: high
+  importance_rationale: '承接原书关键任务 t07（第二章第三节"我怎样看股票的大市"+六点注意+顶底信号）。 "大市不好时，别买任何股票"是全书否决级前提，是选股三步的第一道闸门（t06 依赖其输出）。 漏用后果：逆大势持仓、在全民狂热中接最后一棒、在底部第一信号抢反弹被套牢盘卖压淹没。
+
+    '
+  one_liner: '把指数当一只股票看阶段与正常性，叠加总量背离、六点注意与情绪逆向（全民谈股=顶、大众恐惧=底近）； 大市不好时，别买任何股票——否决级前提。
+
+    '
+  intents:
+  - 判定当前是牛市还是熊市
+  - 决定大盘能不能入场、该不该清仓
+  - 判断大市是否见顶/见底
+  - 解释指数与个股表现背离（怀疑指数失真）
+  - 为选股/买入决策提供大市否决开关
+  keywords:
+  - 大市
+  - 大盘
+  - 牛市
+  - 熊市
+  - 指数
+  - 见顶
+  - 见底
+  - 入场时机
+  - 龙头股疲软
+  - 垃圾股活跃
+  - 涨跌家数
+  - 总量背离
+  - 情绪逆向
+  - 街头巷尾谈股票
+  - 底部两段式
+  - market regime
+  - bull or bear
+  - index trend
+  - market top
+  - market bottom
+  also_read:
+  - cap.stock-trading-wisdom-skill.stock-picking-skill
+  - cap.stock-trading-wisdom-skill.bubble-mania-skill
+  - cap.stock-trading-wisdom-skill.motion-normality-skill
+  card: cards/market-regime-skill.md
+  frontmatter:
+    description: '用户在问"现在是牛市还是熊市""大盘能不能入场/该不该清仓""是不是见顶/见底了"，或发现
+
+      "指数涨我的票不涨"、身边全民谈股、大跌后想抄底时使用：把指数当一只股票看阶段+总量背离+
+
+      六点注意+情绪逆向，输出大市方向与入场许可（否决级：大市不好别买任何股票）。不适用于：
+
+      单只个股走势正常性判定（用 motion-normality-skill）、极端泡沫的参与退出（用 bubble-mania-skill）、
+
+      仓位与配置决策（用 return-allocation）。触发词：大市、牛市、熊市、大盘、指数、见顶、
+
+      见底、入场时机、market regime、bull or bear、index trend。
+
+      '
+    tags:
+    - decision
+    - market-timing
+  source_evidence:
+  - source_id: src-main-book
+    location: 第二章第三节"我怎样看股票的大市"（章首利物莫引语、六点注意、顶底信号）
+  resources: []
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 阶段1.6 晋级门：五判据全过（t06/t07 任务命中、独立意图与契约明确、可独立运行与复用、可写明确评测断言）。原批次元数据遗漏此字段，按 verify_units.md U06/U07 验证结论补录。
+- capability_id: cap.stock-trading-wisdom-skill.bubble-mania-skill
+  revision: 1
+  status: active
+  slug: bubble-mania-skill
+  title: 泡沫（疯）识别
+  importance: high
+  importance_rationale: 命中原书关键任务t10（识别泡沫/大机会）；第七章为全书大机会章，作者称"抓住一个疯，生活就能量变到质变"，且自注"本章从内容上来说，是对前面几章综合性的总结"。缺此卡则全民狂热行情中无"参与-退出"决策件——要么不敢参与错过质变机会，要么在公众识破后接盘（南海泡沫1000→129英镑式断崖）。
+  one_liner: 六特性（可信故事/游资滚雪球/既简单又复杂/已有人赚钱/专家背书/胀得比想象久）核对是否为疯；确认后认清假象、投入其中、公众识破前退出。
+  intents:
+  - 判断热点标的或板块是不是泡沫（疯）
+  - 决定是否参与泡沫行情及用多大仓位参与
+  - 判断泡沫所处阶段与退出时机（公众识破前离场）
+  - 识别疯狂晚期信号（几天暴涨一倍、盲目抢购、骗案层出不穷）
+  - 复盘历史泡沫案例并映射当下行情
+  keywords:
+  - 泡沫
+  - 疯
+  - 股疯
+  - bubble
+  - mania
+  - frenzy
+  - 狂热
+  - 击鼓传花
+  - 最后的傻瓜
+  - greater fool
+  - 接盘
+  - 大机会
+  - 量变到质变
+  - 索罗斯秘诀
+  - 南海泡沫
+  - 专家背书
+  - 逃顶
+  - 退出时机
+  - 唱空被嘲笑
+  also_read:
+  - cap.stock-trading-wisdom-skill.market-regime-skill
+  - cap.stock-trading-wisdom-skill.motion-normality-skill
+  card: cards/bubble-mania-skill.md
+  frontmatter:
+    description: '判断某个热点标的/板块是不是在"发疯"（泡沫）、能否参与、何时退出时使用：问"这是不是泡沫/疯了/bubble/击鼓传花""能不能追""什么时候跑"，或全民热议、几天暴涨、专家齐声唱多、唱空者被嘲笑时。产出六特性逐项核对（可信故事/游资滚雪球/既简单又复杂/已有人赚钱/专家背书/胀得比想象久）+疯狂阶段判定+参与条件（只可用小仓位并预设退出纪律）+晚期退出信号清单（几天暴涨一倍、盲目抢购、骗案层出不穷）。不用于：无故事无游资的普通趋势股（运动正常性卡）、日常牛熊方向判定（大市卡）、泡沫破灭时点的量化预测（原书无阈值，退出依赖定性判断且自承可遇不可求）。
+
+      '
+    tags:
+    - decision
+    - bubble
+    - opportunity-screening
+    - exit-strategy
+  source_evidence:
+  - source_id: src-main-book
+    location: 第七章章首（索罗斯秘诀）与第一节"疯"的故事（南海泡沫、佛罗里达土地疯、科威特股疯、中国的疯故事）
+  - source_id: src-main-book
+    location: 第七章第二节"疯"故事解剖（气球吹胀到胀破全过程、"疯"的六大特性、90年代初中国股疯六条分析、"疯"故事新编"一灵散"价格阶梯）
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 阶段1.5三重验证通过（verify_units.md U09：V1来源/V2纸面演练/V3任务增益全过；canonical p122/p123，成员f34/f35/p124）。五判据——意图独立（"是不是泡沫、能不能参与、何时退出"是独立意图）；契约独立（输入backstory/涨幅与上涨率/游资资金面/专家背书言论/破灭论者遭遇，输出六特性核对表+阶段+参与退出动作）；可独立运行（六项核对→判停→阶段判定→参与/退出，含判停分支）；可复用（适用于任何膨胀中的热点，不限股票，可大熊市底部之外任何时点触发）；可评测（六特性逐项可勾选、晚期信号可数、动作唯一）。B段已记：无时效判据、"公众识破前退出"实践中极难执行（原书自承可遇不可求）、参与泡沫受A股涨跌停与监管约束、幸存者叙事。六特性判停组合（如1-4齐备→小仓位参与）为执行层操作化约定，非原书明文——卡片已如实标注。A2相邻区分（market-regime-skill/motion-normality-skill）为初稿，阶段3回填定稿。
+- capability_id: cap.stock-trading-wisdom-skill.cycle-phase
+  revision: 1
+  status: active
+  slug: cycle-phase
+  title: 周期四阶段定位
+  importance: medium
+  importance_rationale: 命中原书关键任务t01（判定个股当前处于周期哪一阶段）；四阶段是全书操作总纲的前提（"安坐如山""离场"等均以阶段为条件），作者以之替代道氏/波浪理论的实操替身。单独立项复用弱：月线级阶段定位的触发与运动正常性判定（日线级健康检查）重叠度高，其结论通常作为买点/正常性卡的背景许可而非独立交付，故降为 router 入口下的能力卡。
+  one_liner: 把个股长期运动归入蓄劲/爬坡/疲劳/下坡四阶段（均线上呈大弧），按阶段给操作许可；"交易量增加+一举突破阻力线"两条件确认真升势起点。
+  intents:
+  - 判断个股当前处于蓄劲/爬坡/疲劳/下坡哪个时期
+  - 确认蓄劲期向爬坡期的真升势起点（放量突破阻力线）
+  - 获取各阶段的操作许可（买/持/卖/观望/不碰）
+  - 定位长期持股的离场触发（跌穿均线及支撑线）
+  keywords:
+  - 周期
+  - 四阶段
+  - 蓄劲期
+  - 爬坡期
+  - 疲劳期
+  - 下坡期
+  - cycle phase
+  - stage
+  - 阶段定位
+  - 经济周期
+  - 大弧
+  - 安坐如山
+  - 突破阻力线
+  - 真升势起点
+  - 放量突破
+  - 长期趋势
+  - 月线
+  - 周线
+  - 横盘
+  - 均线及支撑线
+  also_read:
+  - cap.stock-trading-wisdom-skill.motion-normality-skill
+  - cap.stock-trading-wisdom-skill.critical-point-buy-skill
+  - cap.stock-trading-wisdom-skill.market-regime-skill
+  card: cards/cycle-phase-skill.md
+  frontmatter:
+    description: '需要判断一只股票处在蓄劲/爬坡/疲劳/下坡哪个时期、该阶段允许什么操作时使用：问"这股票现在什么阶段/长期趋势怎么定位""横盘很久了算不算蓄劲""放量突破阻力线是不是真启动""是不是筑顶/走下坡了"，或需给买入/持有决策提供月线级背景许可。产出四选一阶段判定+各阶段操作许可表（蓄劲观望待突破/爬坡安坐如山盯危险信号/疲劳警惕/跌穿均线及支撑线离场/下坡不碰）+真升势起点两条件确认（交易量增加+一举突破阻力线）。不用于：短线分钟级图表（另一套止盈止损体系）、日线级运动正常性与危险信号判定（运动正常性卡）、全市场方向判定（大市卡）、阶段边界的量化计算（原书为定性划分）。
+
+      '
+    tags:
+    - decision
+    - cycle
+    - technical-analysis
+  source_evidence:
+  - source_id: src-main-book
+    location: 第二章第二节"股票的周期性运动"（图2-14视觉转写、四时期定义、经济周期对应、真升势起点两条件、爬坡期纪律与离场点）
+  - source_id: src-main-book
+    location: 第二章第二节"综合看图"（图2-13完整循环四操作点：买入/加股/卖出/重新买入）
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: false
+      independent_eval: true
+    notes: 阶段1.5三重验证通过（verify_units.md U02：V1来源/V2纸面演练/V3任务增益全过；canonical f04/p21，成员p23/p24/p25，reference f29索罗斯反馈理论）。五判据——意图独立（"现在什么阶段"可独立提问）✓；契约独立（输入足够长的价格序列+均线+量能+关键价位，输出阶段判定+许可表）✓；可独立运行（阶段判定→真启动确认→许可表→判停转接，含分支）✓；复用弱（与motion-normality-skill触发重叠度高：用户问个股长期走势时两卡常同时被想到，阶段结论多作为买点/正常性卡的背景许可而非独立交付）→destination=router，经路由入口访问；可评测（阶段四选一+两条件确认+许可表可纸面复算）✓。B段已记：四阶段定性无量化边界、疲劳期原书只给"警惕"不给减仓动作、蓄劲期"低位吸纳"无具体条件（默认按观望/待突破处理并标注）。A2相邻区分（motion-normality-skill/market-regime-skill）为初稿，阶段3回填定稿。
+- capability_id: cap.stock-trading-wisdom-skill.psych-discipline
+  revision: 1
+  status: active
+  slug: psych-discipline
+  title: 心理纪律执行清单
+  importance: high
+  importance_rationale: '命中原书关键任务 t11（心理纪律自检）。importance 依据为原书原文级判断——"人性中根深蒂固的恐惧、贪婪、希望， 影响着我们所做的每一个决定，使我们常常做不到自己知道该做的事情"（第六章章首），作者称因这三因素犯错者达99%以上； 第五章家训13条是全书操作规则的纪律固化层。漏用后果：规则齐全仍系统性违规——到价迟疑（1994-11-02日记：
+    8500美元利润倒亏2000美元）、止损下移、情绪加码均为作者亲历失败模式。（verify_units.md U10 全单元 verified）
+
+    '
+  one_liner: '交易前内心声音四问＋持有中13条家训与恐惧/贪婪/希望三障碍逐项自检，输出违规项及原书对应纠正规则—— 先查"有没有照规则做"，再谈分析。
+
+    '
+  intents:
+  - 交易前自查这单该不该下（买入理由、书面计划、内心声音甄别）
+  - 持仓中核对执行纪律（止损执行、到价当机立断、别摊平、别频繁交易、别让利润变亏损）
+  - 识别恐惧/贪婪/希望三障碍的当下症状（该进反出、情绪加码、拒绝止损合理化）
+  - 亏损或违规后的归因复盘（违反了哪条规则、不找替罪羊）
+  keywords:
+  - 交易纪律
+  - 心理纪律
+  - 自检
+  - 止损下不了手
+  - 管不住手
+  - 心态
+  - 贪婪
+  - 恐惧
+  - 希望
+  - 华尔街家训
+  - 当机立断
+  - 忘掉进价
+  - 频繁交易
+  - 爱上股票
+  - 复盘
+  - 违反规则
+  - 重置检验
+  - 交易纪律清单
+  - trading discipline
+  - self-check
+  - fear greed hope
+  - follow my rules
+  also_read:
+  - cap.stock-trading-wisdom-skill.sell-trailing-stop-skill
+  - cap.stock-trading-wisdom-skill.money-management-skill
+  card: cards/psych-discipline-skill.md
+  frontmatter:
+    description: '自查交易纪律时使用：下单前问"这单该不该下"，持仓中问"有没有照规则做"（止损没执行、
+
+      到价没卖、套牢不卖、赚点就跑、频繁交易、情绪加码、摊平、爱上一只股票），或亏损后想复盘
+
+      "错在哪、违反了哪条规则"。按13条家训＋恐惧/贪婪/希望三障碍做交易前/持有中两轮自检，
+
+      输出违规项＋原书纠正规则。不用于：买卖点位
+
+      （critical-point-buy-skill/sell-trailing-stop-skill）、仓位（money-management-skill）、选股图形分析、
+
+      学股阶段评估（stage-selftest）。触发词：交易纪律、管不住手、止损下不了手、复盘、
+
+      why can''t I follow my rules。
+
+      '
+    tags:
+    - checklist
+    - psychology
+    - discipline
+  source_evidence:
+  - source_id: src-main-book
+    location: 第五章第一节 华尔街的家训（13条：止损/分散/别买太多/有疑问离场/忘掉进价/别频繁交易/别摊平/别让利润变亏损/别跟朋友/当机立断/定计划/别爱上股票/市场从来不会错）
+  - source_id: src-main-book
+    location: 第六章 从有招迈向无招（第一节恐惧/贪婪/希望三障碍；第二节心理训练·四问与错误归因）
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: false
+    notes: '阶段1.5 U10 全单元 verified（V1来源/V2纸面演练/V3任务增益全过）。gate 按实情——意图独立 （"管不住手/复盘错在哪"可不提书名单独提出）；契约独立（输入交易行为+持仓状态，输出违规项+纠正规则）； 可独立运行（两轮自检含判停分支自成闭环）；可复用（任何交易前/持有中场景可调用，且需与操作卡组合使用）； 不可完全独立评测（违规真值依赖用户行为自述，无盘面客观校验，正负例断言只能覆盖输出结构而非内容真值）。
+      判 router 的主因是产品定位：本卡的价值主要在"更常与操作卡组合使用"（消费 sell-trailing-stop-skill/ money-management-skill/critical-point-buy-skill 的规则本体做执行审计），独立可发现入口会与三张操作卡形成触发竞争， 按阶段1.6"最少入口覆盖最多意图"保留为 router 卡。A2相邻区分（sell-trailing-stop-skill/money-management-skill/
+      stage-selftest）为初稿，阶段3回填定稿。
+
+      '
+- capability_id: cap.stock-trading-wisdom-skill.stage-selftest
+  revision: 1
+  status: active
+  slug: stage-selftest
+  title: 学股阶段自测与排障
+  importance: medium
+  importance_rationale: '命中原书关键任务 t12（定位自身学股阶段并针对性训练，第八章："我最希望的是知道我已经学到什么地步"， 读者最常问"我学到什么地步了"）。价值在于把学习进度转为行为症状自评并按阶段给对策，防止蛮干者直接追求 高级技巧、拦截频繁换方法死循环与纸上交易误区；但为自评类工具，非交易决策件，重要性次于操作卡。 （verify_units.md U11 全单元
+    verified）
+
+    '
+  one_liner: '按行为症状把学股者定位到蛮干/摸索/体验风险/"久赌必赢"四阶段（约5-6年、不可跳级）， 输出阶段判定＋该阶段训练重点＋典型错误对策。
+
+    '
+  intents:
+  - 自评处于学股哪个阶段、什么水平、还要学多久
+  - 问该阶段先练什么、典型错误怎么纠正
+  - 大亏或大赚后大亏之后，想知道这在学习路径中意味着什么
+  - 在几套方法间来回切换、怀疑是方法问题还是自己问题
+  keywords:
+  - 学股阶段
+  - 四阶段
+  - 蛮干阶段
+  - 摸索阶段
+  - 体验风险
+  - 久赌必赢
+  - 新手
+  - 入门
+  - 毕业
+  - 什么水平
+  - 学股路径
+  - 该先学什么
+  - 止损止不好
+  - 赚小钱亏大钱
+  - 初始者运气
+  - 纸上交易
+  - 学习曲线
+  - learning stages
+  - novice
+  - self-assessment
+  also_read:
+  - cap.stock-trading-wisdom-skill.psych-discipline
+  - cap.stock-trading-wisdom-skill.money-management-skill
+  card: cards/stage-selftest-skill.md
+  frontmatter:
+    description: '用户想定位学股进度时使用：问"我在哪个阶段/什么水平/还要学多久/该先练什么"，或自述
+
+      "赚点就跑、套牢不卖、止损老是被洗、不知道为什么赚为什么亏、亏过大钱后才醒悟"。按蛮干→摸索→
+
+      体验风险→"久赌必赢"四阶段行为症状问卷定位阶段，输出阶段判定＋训练重点＋典型错误对策
+
+      （约5-6年不可跳级；learning stages / am I still a novice）。不适用于：具体个股分析与买卖决策、
+
+      当下交易的纪律违规检查（用 psych-discipline）、仓位与规则本体（用 money-management-skill 等操作卡）。
+
+      触发词：学股阶段、新手、毕业、什么水平、止损止不好、learning stages。
+
+      '
+    tags:
+    - self-assessment
+    - learning-path
+    - psychology
+  source_evidence:
+  - source_id: src-main-book
+    location: 第八章第一节 学股的四个阶段（蛮干/摸索/体验风险/"久赌必赢"症状与作者自述历程）
+  - source_id: src-main-book
+    location: 第八章第二节 回答几个问题（纸上交易无用论）；第四章第三节 定位好方法，持之以恒（方法-个性-市场匹配）
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: false
+      independent_eval: true
+    notes: '阶段1.5 U11 全单元 verified（V1来源/V2纸面演练/V3任务增益全过）。gate 按实情——意图独立 （"我算什么水平"是可单独提出的任务）；契约独立（输入行为症状自述，输出阶段+对策+预期四件套）； 可独立运行（症状问卷+对策映射含判停分支）；复用性弱（同一用户的阶段迁移缓慢，重复调用频率低， 主要作为 router 内被 psych-discipline
+      复盘等场景跳转的辅助件）；可评测（症状组合→阶段判定 可写正向/负向/近邻断言并可纸面复算）。判 router 的主因是预期调用频率低：阶段判定对单个用户 属低频一次性需求，独立入口性价比不足，按阶段1.6预算排序保留为 router 卡。 A2相邻区分（psych-discipline/操作卡）为初稿，阶段3回填定稿。
+
+      '
+- capability_id: cap.stock-trading-wisdom-skill.manipulation-signs
+  revision: 1
+  status: active
+  slug: manipulation-signs
+  title: 大户操纵痕迹识别
+  importance: medium
+  importance_rationale: '命中原书关键任务 t15（识别大户操纵痕迹，"大户的花招其实明显得很"）。价值在于给危险信号与 假突破/假跌破提供机制解释（吸筹-推升-派发生命周期），使量价信号"知其所以然"，并把股评/假账的 消息面处理统一到量价证据（钱不撒谎）；但阶段0批判明确其基于1990s庄股叙事、现代市场适用性存疑 （t15 尚缺条件栏原文），阶段0优先级排序列于末位，故为
+    medium 且不晋级。 （verify_units.md U14 全单元 verified）
+
+    '
+  one_liner: '钱不撒谎：只认量价痕迹——假跌破支撑放量反弹＝恐慌吸纳（极佳买点）、突破即回落＝假信号、 无消息暴升冲高回落/量增价滞＝派发出货、静默低位放量＝吸筹；操纵只能改短期波动、不能改大势。
+
+    '
+  intents:
+  - 判断个股异动是不是庄家/主力做盘（假跌破、假突破、砸盘吸筹、诱多）
+  - 判断放量滞涨、无消息暴升是不是在出货、该不该跑
+  - 判断股评推荐该不该跟（找最后傻瓜还是联手推升初期）
+  - 低位温和放量缓涨是不是有人在悄悄吸筹
+  keywords:
+  - 庄家
+  - 主力
+  - 大户
+  - 做盘
+  - 操纵
+  - 假突破
+  - 假跌破
+  - 砸盘
+  - 吸筹
+  - 出货
+  - 派发
+  - 诱多
+  - 抬轿
+  - 量增价滞
+  - 暴升无消息
+  - 股评推荐
+  - 最后的傻瓜
+  - 钱不撒谎
+  - 对手盘
+  - 套牢盘
+  - manipulation
+  - smart money
+  - false breakout
+  - pump and dump
+  also_read:
+  - cap.stock-trading-wisdom-skill.motion-normality-skill
+  - cap.stock-trading-wisdom-skill.critical-point-buy-skill
+  - cap.stock-trading-wisdom-skill.bubble-mania-skill
+  card: cards/manipulation-signs-skill.md
+  frontmatter:
+    description: '怀疑个股异动是不是有人做盘时使用：问"是不是庄家/主力在操纵""跌破支撑又拉回是不是假跌破/
+
+      砸盘吸筹""突破后回落是不是假突破""放量不涨是不是出货""股评推荐能不能跟"。只认量价证据
+
+      （钱不撒谎），按痕迹清单核对假跌破放量反弹、突破即回落、无消息暴升冲高回落、静默吸筹、
+
+      量增价滞、股评位置鉴别，输出疑似操纵类型＋操作含义（manipulation）。
+
+      不用于：只判走势正常与否（motion-normality-skill）、全市场泡沫（bubble-mania-skill）、预测大势
+
+      （操纵不改大势）、权重股硬套庄股叙事。
+
+      触发词：庄家、主力、做盘、假突破、假跌破、出货、吸筹、manipulation。
+
+      '
+    tags:
+    - decision
+    - technical-analysis
+    - manipulation
+  source_evidence:
+  - source_id: src-main-book
+    location: 第四章第一节"关键:把握临界点"（图4-7 假跌破、四种做盘手法、对手盘思维）；第二章第二节"技术分析的基本知识"（钱不撒谎）
+  - source_id: src-main-book
+    location: 第三章第二节"注意危险信号"（吸筹-公开推荐-令股价暴升找傻瓜的生命周期、图3-2 危险信号样板）；第八章第一节（股评鉴别）；第八章第二节（假账防护）
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: false
+    notes: '阶段1.5 U14 全单元 verified（V1来源/V2纸面演练/V3任务增益全过）。gate 按实情——意图独立 （"是不是有庄在做盘"是可单独提出的高频问题）；契约独立（输入量价序列+关键位+消息面， 输出疑似操纵类型+操作含义）；可独立运行（六项痕迹清单+生命周期定位+判停分支自成闭环）； 可复用（任何个股异动场景可核对，并为 motion-normality-skill/critical-point-buy-skill
+      提供机制解释）； 不可完全独立评测（痕迹判定依赖"大户做盘"的动机假设，动机不可观察，输出类型字段可断言但 真值校验依赖不可证伪的归因；"十中九赚"为作者自述无样本）。判 router 的主因是证据强度与 触发可分性：庄股叙事时代局限（BOOK_OVERVIEW 批判节）削弱独立入口的证据强度，且异动核对场景 与 motion-normality-skill 高度相邻、易双触发，按阶段1.6排序保留为
+      router 卡、以机制解释件形态服务。 A2相邻区分（motion-normality-skill/bubble-mania-skill/critical-point-buy-skill）为初稿，阶段3回填定稿。
+
+      '
+- capability_id: cap.stock-trading-wisdom-skill.return-allocation
+  revision: 1
+  status: active
+  slug: return-allocation
+  title: 合理回报与战略定位
+  importance: medium
+  importance_rationale: 命中原书关键任务 t13（设定合理回报预期与配置战略，第九章2016新增，作者自认原书风控讨论不足而补写）；章题"善战者无赫赫之功"是全书风控价值观的收束。但阶段0优先级排序列第8位——属低频战略层判断，定位一次后长期沿用；缺卡后果为回报预期错位（以为年年翻倍才及格）进而用养家钱豪赌（昌九生化爆仓、2015年7月3万个500万户口被消灭）（verify_units.md
+    U12 全单元 verified）
+  one_liner: 先按资金性质与股龄分流战略（学习期/赌一把/专业/稳妥），回报预期围绕指数校准（美股约10%锚），用分仓应对个股风险、轻仓应对大市风险，集小胜为大胜靠复利
+  intents:
+  - 设定合理的年化回报预期（多少算正常、能不能指望翻倍）
+  - 决定投入股市的资金总盘子与仓位哲学（满仓还是轻仓）
+  - 在"赌一把/走专业道路/稳妥投资"之间做战略分流
+  - 规划分散度（集中一只还是分散多只、单票占比）
+  - 挑选基金/投资管理人
+  - 校准"专职炒股/财务自由"的职业预期
+  keywords:
+  - 合理回报
+  - 回报预期
+  - 资产配置
+  - 战略定位
+  - 分仓
+  - 轻仓
+  - 分散风险
+  - 指数回报
+  - 复利
+  - 善战者无赫赫之功
+  - 赌一把
+  - 稳妥投资
+  - 专职炒股
+  - 财务自由
+  - 指数基金
+  - 投资管理人
+  - 余钱
+  - reasonable return
+  - asset allocation
+  - compounding
+  also_read:
+  - cap.stock-trading-wisdom-skill.money-management-skill
+  - cap.stock-trading-wisdom-skill.market-regime-skill
+  card: cards/return-allocation-skill.md
+  frontmatter:
+    description: '设定回报预期、安排资金配置或做战略分流时使用：问"年化多少算合理/能不能指望翻倍""该拿多少钱入市、满仓还是轻仓""赌一把/走专业/稳妥怎么选""怎么挑基金或管理人"。按"学习期与三型分流→回报围绕指数校准→分仓对个股风险、轻仓对大市风险→善战者无赫赫之功"输出战略类型+配置原则+底线。不适用于：单笔下注加码（money-management-skill）、学股阶段自评（stage-selftest）、当下大市方向（market-regime-skill）、具体买卖点。无配置计算公式，10%锚为美股口径。Trigger:
+      合理回报/资产配置/分仓轻仓/复利/余钱/reasonable return。
+
+      '
+    tags:
+    - decision
+    - asset-allocation
+    - strategy
+  source_evidence:
+  - source_id: src-main-book
+    location: 第九章 善战者无赫赫之功（第一节"首先确定自己的战略目标"、第二节"什么是股市可以期待的合理回报"、第三节、第四节"思路清晰，无怨无悔"）
+  resources: []
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: false
+      independent_eval: true
+    notes: 阶段1.5知识验证通过（verify_units.md U12：V1来源/V2纸面演练/V3任务增益全过）。五判据评审——意图独立（回报预期与配置战略可脱书单提）、契约独立（输入资金性质/股龄/回报预期，输出战略类型+配置原则+底线）、可独立运行（分流流程含余钱铁律判停）、可评测（三型分流可写正/负/近邻断言）均过；判据4独立复用不过——战略定位是低频一次性判断，一次定位长期沿用，执行层依赖其他能力卡，按晋级门"与5至少1条通过"单看仍可过，但结合预算排序（预期调用频率低、importance=medium）降为
+      router 能力卡。原书无配置计算公式、10%为美股口径，卡片B段已如实标注。
+- capability_id: cap.stock-trading-wisdom-skill.ma250-system
+  revision: 1
+  status: active
+  slug: ma250-system
+  title: 250天线简易操作系统
+  importance: high
+  importance_rationale: 命中原书关键任务 t14（250天线简易操作系统）——作者在"2016年再版的话"明示"我这里给几点具体建议""若股友们愿照做"，是全书唯一"请照做"级别的最小可执行系统，四要素（进点/止损/卖点/风险）齐备，为不愿或不能执行完整临界点体系的新手兜底（任务清单标注"新手最小可执行"，verify_units.md U13 全单元 verified，参数无回测已入
+    B 段）
+  one_liner: 只买250日线上方（最好上穿时买）、入场后5%–8%止损、线上坐等、回碰250日线即卖、每笔≤本金10%——四要素齐备的最小系统，牛市抓中间一段，熊市避开
+  intents:
+  - 用250天线规则给出极简买卖动作（买/持有/卖/不参与）
+  - 判断某股当前在年线上方还是下方、可否按系统参与
+  - 为新手配置一套四要素齐备、可照做的最小操作系统
+  - 核查自己是否按既定均线规则执行（没找不做的理由）
+  keywords:
+  - 250天线
+  - 250日均线
+  - 年线
+  - 均线系统
+  - 200天线
+  - 300天线
+  - 简易操作系统
+  - 极简规则
+  - 机械交易系统
+  - 上穿买入
+  - 回碰卖出
+  - 坐等
+  - 牛市抓中间一段
+  - 熊市避开
+  - moving average system
+  - 250-day MA
+  - simple trading rules
+  also_read:
+  - cap.stock-trading-wisdom-skill.critical-point-buy-skill
+  - cap.stock-trading-wisdom-skill.sell-trailing-stop-skill
+  - cap.stock-trading-wisdom-skill.money-management-skill
+  card: cards/ma250-system-skill.md
+  frontmatter:
+    description: '新手要极简可照做的买卖规则时使用：问"有没有不用学K线的简单系统""250天线/年线怎么用""上穿年线能不能买""跌破年线要不要卖"。四条规则：只买250日线上方（最好上穿时买）、入场后5%–8%止损、线上坐等、回碰250日线即卖、每笔≤本金10%，输出买/持有/卖/不参与及触发价。不适用于：解读突破形态与临界点（critical-point-buy-skill）、注码与分批（money-management-skill）、四维正常性判定（motion-normality-skill）。参数无回测，A股整手/涨跌停为执行适配。Trigger:
+      250天线/年线/极简系统/机械规则/没时间盯盘/250-day MA。
+
+      '
+    tags:
+    - decision
+    - trading-system
+    - rules
+  source_evidence:
+  - source_id: src-main-book
+    location: 2016年再版的话（操作系统四要素与四条具体建议、参数可替换条款）
+  resources: []
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 阶段1.5知识验证通过（verify_units.md U13：V1来源/V2纸面演练/V3任务增益全过；该单元为纯规则单元，无案例候选，卡片A1按规范用明确标注的合成演练）。五判据单看均过——意图独立（新手求极简规则可脱书单提）、契约独立（四条规则即输入输出契约）、可独立运行、可复用（逐股逐次可核）、可评测（演练可复算）。仍降为 router 的原因是预算与触发可分性排序（阶段1.6步骤3）："何时买/止损设哪"与已晋级
+      critical-point-buy-skill 高度重叠、"每笔≤本金10%"与 money-management-skill 重叠，独立入口会引发同一请求双触发；作者原话"与临界点体系存在张力"（机械绝招不存在 vs 机械规则）也要求两卡互为近邻负例。保留为能力卡，经路由入口访问。
+- capability_id: cap.stock-trading-wisdom-skill.fundamental-check
+  revision: 1
+  status: active
+  slug: fundamental-check
+  title: 基本面快速审视
+  importance: medium
+  importance_rationale: 命中原书关键任务 t08（基本面快速审视，第二章第一节）——作者要求"如果只靠走势图来炒股票，不知道公司到底是干什么的和干得怎么样，心里虚得很"，是技术分析的底层校验与"三者共振胜算最大"的一角。但阶段0优先级排序列第9位；原书即定性清单、无财务指标阈值（任务清单明示缺口），单卡回答力有限，多与选股/买点卡组合使用（verify_units.md U08
+    全单元 verified）
+  one_liner: 大环境八项只作背景；重点核小环境五项（营收势头/盈利/固定资产/同类比较/品牌）+涨三因素（盈利增长——须建立在收入真实增长上、新产品、回购），作技术分析的底层校验，输出红旗项与定性结论
+  intents:
+  - 快速核对某公司基本面（干什么的、干得怎么样）
+  - 评估营收与盈利增长的质量（真假增速、背离调查）
+  - 检查一家公司有无股价上涨的三因素（盈利增长/新产品/回购）
+  - 识别财报水分红旗（收入确认、折旧、会计游戏）
+  - 买点决策前做底层校验
+  keywords:
+  - 基本面
+  - 基本面分析
+  - 小环境
+  - 大环境
+  - 营业收入
+  - 盈利增长
+  - 会计游戏
+  - 新产品
+  - 公司回购
+  - 固定资产
+  - 品牌价值
+  - 市盈率
+  - 成本收益比
+  - 财报水分
+  - 收入确认
+  - 增收不增利
+  - fundamentals
+  - revenue growth
+  - earnings growth
+  - PE ratio
+  also_read:
+  - cap.stock-trading-wisdom-skill.stock-picking-skill
+  card: cards/fundamental-check-skill.md
+  frontmatter:
+    description: '买入前或持股中想快速核对一家公司"干什么的、干得怎么样"时使用：问"这公司基本面怎么样""营收大增但利润没增怎么看""PE这么高能不能买""有没有新产品/回购利好"，或按图形选好标的想做底层校验时。按"大环境八项仅作背景→小环境五项（营收势头/盈利/固定资产/同类对比/品牌）→涨三因素（盈利增长/新产品/回购）"逐项清单核对，输出红旗项与定性结论；明确无财务阈值、不构成买卖信号。不适用于：估值定目标价、深度财务分析、选股类别筛选（stock-picking-skill）、看图找买卖点。Trigger:
+      基本面/小环境/营收/盈利增长/会计游戏/回购/fundamentals/earnings growth。
+
+      '
+    tags:
+    - checklist
+    - fundamental-analysis
+  source_evidence:
+  - source_id: src-main-book
+    location: 第二章第一节 基本面分析的基本知识（大环境八项/小环境五项/导致股价上涨的三个因素；彼得·林奇15分钟引言）
+  resources: []
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 阶段1.5知识验证通过（verify_units.md U08：V1来源/V2纸面演练/V3任务增益全过）。五判据单看均过——意图独立（"看看这家公司基本面"可脱书单提）、契约独立（主营+两期财务趋势输入，清单+红旗+定性结论输出）、可独立运行、可复用（逐候选股可用，且被选股/买点卡组合调用）、可评测（清单核对可写断言）。仍降为 router 的原因是预算与价值排序（阶段1.6步骤3）：原书即定性清单、无财务阈值（importance=medium，阶段0优先级第9位），单卡对用户问题的回答力弱于已晋级卡，定位是其他能力卡的底层校验件而非独立发现入口。缺口（无阈值、现金值法作者自认是"猜"、假账只能靠技术面防护）已写入卡片B段。

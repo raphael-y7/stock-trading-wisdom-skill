@@ -2,159 +2,201 @@
 
 <p align="center"><a href="README.md">中文</a> | English</p>
 
-An AI skill pack for immediate use — it distills the trading system in Chen Jiangting's *The Wisdom of Stock Trading: Experience of Making a Living by Trading Stocks on Wall Street (4th Edition)* — "protect your capital + bet small and split your positions + trade only at critical points + cut losses short and let profits run" — into 14 capability cards that can be triggered individually or combined.
+A ready-to-use AI skill toolkit — it distills the human-nature-and-probability trading decision system of *The Wisdom of Stock Trading* (《炒股的智慧》) into 14 capability cards that can each be triggered on their own or composed together. Seven of them are promoted to standalone skills; the other seven are loaded on demand through a source router entry.
 
-It is not a book summary, nor a reading response — it breaks the reusable methodology in the book into skill modules that can be triggered, executed and tested.
+It is not a summary of the book and not a reading response. It breaks the book's reusable methodology into skill modules that can be triggered, executed and tested.
 
 ## What these skills solve
 
-- Your position has a profit and then pulls back for two days; you cannot tell a normal low-volume pullback you should sit through from distribution you should exit — the book gives you a four-dimension check (trend line, support and resistance, confirmation of the breakout point, position against the moving average) plus volume-price confirmation, judged item by item instead of by feel
-- You see a high-volume breakout of a prior high and want to chase, but fear a false breakout — the entry and the stop are two halves of the same definition: trigger price, stop price and failure criterion must all be fixed together, and a trade with one of them missing is not a complete trade
-- You do not know when to sell a winner: protect capital first (move the stop above your cost), lose only a little, take windfall profits when they come, watch for rising volume with a stalling price, and trail the stop up through each successive wave trough — six rules, each with its own trigger
-- You do not know how much to bet on this one trade: how many slices to cut your capital into, how much to bet at 60% conviction versus 80%, where the 1:3 risk-reward threshold sits, and why averaging down on a loser is "the shortcut to bankruptcy"
-- You have the order of the three layers backwards — "when the broad market is bad, do not buy any stock" is a veto-level premise, and stock selection runs market → strongest sector → the leader in that sector
-- You cannot tell whether the current mania is a bubble, or you know it is one and still want in — the six-characteristic checklist locates the stage and forces you to write your exit discipline down before you enter
+- A position pulls back for a few days and paper profit shrinks — normal pullback or distribution signal? Sell or hold?
+- Price breaks out on volume and you want to chase, but you cannot state the entry trigger, the stop price, or the price at which the trade is void
+- After a profit you do not know which level to raise the stop to, so "let profits run" turns into "let profits turn into losses"
+- Position sizing, averaging down, margin leverage — decided by feel, and one oversized bet wipes out ten small wins
+- You keep picking stocks while the broad market is bad; or the index rises while your stock does not, and you suspect the index is lying
+- You know the discipline but cannot pull the stop, take profits too early, refuse to sell at a loss, and after a loss only say "next time I'll be careful"
 
 ## What was distilled
 
-14 capability cards, organized in the order "clear the market first, pick the target second, fix the location third, size the bet last":
+14 capability cards, organised as "locate the position first, then decide entry and exit, then manage money and yourself". Slugs map one-to-one to `bundle/verified.yaml`:
 
-- **Premise and target**: `market-regime` (broad-market checklist), `stock-picking` (three-step stock selection)
-- **Location: where to buy, where to sell**: `critical-point-buy` (critical-point entry decision), `sell-trailing-stop` (sell rules and the trailing-stop system)
-- **Holding and betting**: `motion-normality` (is the stock's movement normal), `cycle-phase` (four-stage cycle positioning), `money-management` (position sizing and betting rules)
-- **Environment and ground-level checks**: `bubble-mania` (bubble/mania identification), `manipulation-signs` (traces of large-operator manipulation), `fundamental-check` (quick fundamental review)
-- **Discipline, expectations and a minimal system**: `psych-discipline` (psychological discipline checklist), `stage-selftest` (learning-stage self-test and troubleshooting), `return-allocation` (reasonable returns and strategic positioning), `ma250-system` (the 250-day moving-average minimal system)
+- **Entry and location**: `critical-point-buy-skill` (critical-point entry decisions, critical)
+- **Holding and exit**: `motion-normality-skill` (is the move normal, critical), `sell-trailing-stop-skill` (exit rules and trailing stops, critical)
+- **Money and risk**: `money-management-skill` (position sizing rules, critical)
+- **Stock selection and market**: `stock-picking-skill` (three-step screening, high), `market-regime-skill` (broad-market checklist, high), `bubble-mania-skill` (mania identification, high)
+- **Cards served through the router entry** (router, 7 cards): `cycle-phase` (four-stage cycle, medium), `psych-discipline` (discipline checklist, high), `stage-selftest` (learning-stage self-test, medium), `manipulation-signs` (operator footprints, medium), `return-allocation` (realistic return and allocation, medium), `ma250-system` (250-day MA minimal system, high), `fundamental-check` (quick fundamentals, medium)
+
+7 promoted + 7 routed = 14 cards, matching the 14 files in `bundle/cards/` and the 14 capabilities in `bundle/verified.yaml`.
 
 ## Two packaging modes: single and pack
 
-The same 14 capability cards are compiled twice, at two granularities. The content is identical; the only difference is how many entries an agent can discover.
+The same 14 cards are compiled twice at different granularity. The content is identical; the only difference is how many entry points an agent can see.
 
-| | single (one entry) | pack (compact pack, multiple entries) |
+| | single (one entry) | pack (compact pack, many entries) |
 |---|---|---|
-| Discoverable entries | **1**: `stock-trading-wisdom-skill` | **8**: one source router + 7 promoted standalone skills |
-| Where the 14 cards live | All inside the entry's `references/capabilities/`, loaded 1–2 at a time by the routing table | 7 high-frequency cards become standalone skills; all 14 also keep a source copy under the router's `references/`, and the 7 that were not promoted are reachable only through the router |
-| Triggering | Only the entry description participates in matching; routing happens after entry | The 7 high-frequency capabilities are matched directly, one hop fewer |
-| Upgrades | Replace 1 directory | Replace 8 directories |
+| Discoverable entries | **1**: `stock-trading-wisdom-skill` | **8**: 1 source router + 7 promoted standalone skills |
+| Where the 14 cards live | All inside the entry's `references/capabilities/`, loaded 1–2 at a time per the routing table | The 7 promoted cards are standalone skills; the other 7 stay in the router's `references/` |
+| Triggering | Only the entry description participates in matching, then the routing table dispatches | 7 high-frequency capabilities are matched directly by their own description, one hop fewer |
+| Upgrading | Replace 1 directory | Replace 8 directories |
 
-The 7 cards promoted to standalone skills in the pack:
+The 7 cards promoted to standalone skills in pack:
 
-- `motion-normality-skill` — is the stock's movement normal
-- `critical-point-buy-skill` — critical-point entry decision
-- `sell-trailing-stop-skill` — sell rules and the trailing-stop system
-- `money-management-skill` — position sizing and betting rules
-- `stock-picking-skill` — three-step stock selection
+- `motion-normality-skill` — is the move normal
+- `critical-point-buy-skill` — critical-point entry decisions
+- `sell-trailing-stop-skill` — exit rules and trailing stops
+- `money-management-skill` — position sizing rules
+- `stock-picking-skill` — three-step screening
 - `market-regime-skill` — broad-market checklist
-- `bubble-mania-skill` — bubble/mania identification
-
-The 7 that stay in the router and are reachable only through the routing entry: `cycle-phase`, `psych-discipline`, `stage-selftest`, `manipulation-signs`, `return-allocation`, `ma250-system`, `fundamental-check`.
+- `bubble-mania-skill` — mania identification
 
 ### Which one to install
 
-Pick by the way you work, and **install only one**:
+Pick by how you work, and **install only one**:
 
 | How you work | Recommended | Why |
 |---|---|---|
-| You use DSH / Codex / Claude Code with a skills directory and want a clean list | single | Takes 1 slot, loses no capabilities |
-| Your daily questions concentrate on "should I still hold / can I chase / should I sell / how much / which stock / is the market okay / is this a bubble" | pack | Those are exactly the promoted standalone skills, matched directly |
-| You distribute to several agents or teammates who pick what they need | pack | They can install only the standalone skills they want |
-| You want to install once and maintain one directory | single | Upgrades replace a single directory |
+| You use DSH / Codex / Claude Code with a skills directory and want a clean list | single | Takes 1 entry, no capability missing |
+| Your daily questions cluster around "hold or sell / can I chase / where is the stop / how much to buy / what to buy / how is the market / is this a bubble" | pack | Those 7 are exactly the promoted skills, matched directly |
+| You distribute to several agents or a team that each need a subset | pack | Install only the standalone skills you need, not the whole pack |
+| You want to install once and not maintain many directories | single | Upgrading means replacing 1 directory |
 
-> Both builds come from the same bundle and carry identical capabilities. **Installing both will double-trigger**, so pick one.
+> Both variants are compiled from the same Bundle and hold the same capability content. **Installing both will double-trigger** — please install only one.
 
 ## Examples
 
-### Example 1: a high-volume breakout from a range — can I chase it?
+### Example 1: a 10% pullback after a rally — normal pullback or distribution?
 
 **User question**
 
-"This stock has been stuck between 19.8 and 20.2 for three months. Today it closed at 20.80 on heavy volume — a breakout. Can I chase it? And if I do, where does the stop go?"
+"I hold this stock; it ran from 20 to 27, pulled back to 24 in the last few days, and volume is less than half of what it was during the rally. Is this a normal pullback or distribution? Should I sell half?"
 
-**How the skill reasons**
+**How the skill decides**
 
-- First the veto gate in `critical-point-buy`: if the broad market is bad, buy nothing and the flow terminates; if the stock is in a clear downtrend, "never enter a declining trend" terminates it too. Only when both pass does entry identification start
-- Entry type, one of five: this is type ② "high-volume break of a resistance line". Trigger = standing above the resistance line on volume; stop 0.5–1 yuan below the line (the book's own example: 15 yuan resistance → stop at 14.50 or 14); failure criterion = a close back below the resistance line, i.e. a false breakout, exit. **A breakout without volume is not a valid breakout** and terminates the flow
-- Stop compliance: the book's convention is an ideal loss within 10%, with a hard cap of 20% under any circumstances; low-priced stocks get more absolute room (a 5 yuan stock gets 0.75 yuan → stop at 4.25)
-- Sizing goes to `money-management`: ask "can I afford to lose this", then apply the slice convention (6–8 slices for a beginner, another book convention of 5–10 slices, and the 2016 reprint system's single bet ≤ 10% of capital — three conventions coexist, take the intersection), the conviction tiers (60% → about 10%, 80% → 30%–50%), and the **G/L ≥ 3** risk-reward threshold
+- The entry dispatches by its routing table: this is a position health check, so it enters `motion-normality-skill`
+- Four dimensions checked one by one: trend line (peaks rise 20→21→22→27 and the 24 pullback has not broken the prior trough), support/resistance (price has not fallen back below the last breakout point), breakout confirmation, moving average (price above the 200-day line)
+- Volume check: advances on expanding volume (one to two times average), pullbacks on clearly shrinking volume, recoveries on expanding volume to new highs
+- Danger-signal quick check: a sudden surge in a slow uptrend plus a volume spike plus a sharp intraday reversal — not triggered here
 
-**Sample answer**
+**Sample final answer**
 
-> Answer two things before we talk about chasing. First, how is the broad market? The book's premise is veto-level — when the market is bad, even a beautiful critical point does not get acted on. Second, is this a breakout or a volume-less fake? Only standing above 20.20 on volume qualifies as a type ② entry.
->
-> Assuming both pass: the trigger sits just above 20.20, and the stop goes 0.5–1 yuan below the resistance line per the book's practice, so 19.20–19.70 — a 5%–8% loss, inside the "ideally within 10%" band. Write the failure criterion down as one hard line: a close back below 20.20 means a false breakout, you leave, you do not add and you do not average down.
->
-> Then check whether the trade is worth taking at all. G is target minus entry, L is entry minus stop, and the book's threshold is G/L of at least 1:3; below that, drop the trade or find another target. One gap in the book has to be stated plainly: **it gives no algorithm for the target price**. The target can only come from a chart reference (a prior high, a resistance line above), so that G is drawn by you — write down where you drew it and do not move it afterwards.
->
-> Finally, sizing. Under the slice convention, with 200,000 of capital at the beginner tier, a single bet is roughly 20,000; split it 200:400:400, where the first batch is only a probe and the second is added once the movement confirms. Note that A-shares have daily limits and T+1, so a breakout day may not even be buyable — the book does not discuss that execution friction, so leave room for it yourself.
+> Run the four dimensions before you run with "it dropped 10%". Peaks and troughs are still rising, the pullback has not fallen back below the last breakout point, price is still above the 200-day line, and volume expanded on the advance and shrank on the pullback — nothing is broken, so this is a normal pullback and the book's action here is to sit tight, not to sell half. One caveat: the test is the shape of the move, not the percentage — "it went up a lot" is not a sell reason, "it broke down" is. The conditions that actually call for action are a break below the prior trough, or a danger signal such as a sudden surge in a slow uptrend with a volume spike and a sharp reversal — and then it is not half, it is the whole position out, with re-entry only after the four dimensions and volume qualify again a few days later. As for scaling out at specific prices, that belongs to the exit and trailing-stop card; give me the levels and I will run that card's rules.
 
-### Example 2: a pullback after a profit — hold or take the money?
+### Example 2: a volume breakout from a box — chase it, and where is the stop?
 
 **User question**
 
-"I bought this at 20, it ran to 27, then pulled back on light volume to 24 and my paper profit shrank. Should I sell first?"
+"This stock has been ranging for three months in a 19.8–20.2 box. Today it broke out on 2.5 times average volume and closed at 20.80. Can I chase it? Where do I put the stop?"
 
-**How the skill reasons**
+**How the skill decides**
 
-- `motion-normality` establishes direction first: rising peaks and troughs → uptrend; drifting aimlessly in a range → "no trend, no trade", flow terminates; a clear downtrend → hand over to `sell-trailing-stop` for the exit
-- Four dimensions, checked one by one; any one broken marks it "not normal": ① trend line (peaks and troughs stepping up, price above the line) ② support and resistance (the pullback after a breakout has not fallen back below the resistance line) ③ double-shoulder / head-and-shoulders (does it continue after crossing the breakout point) ④ moving average (in an uptrend price is above the 200-day; below it, do not buy and do not hold)
-- Volume-price verification: is the advance on expanding volume, is the pullback clearly shrinking, does the recovery make a new high on volume, is this advance no weaker than the previous one
-- Danger-signal quick check (a terminating branch): a sudden vertical spike after a slow rise + a burst in volume + a sharp intraday reversal → straight to danger signal, skipping the composite judgement, liquidate everything
-- All four dimensions plus volume-price pass with no danger signal → "normal movement", action is to hold and sit still; adding size goes to `money-management`
+- The veto gate comes first: if the broad market is bad, buy nothing; never enter a stock in a clear downtrend
+- Entry type: this is a "volume breakout through resistance"; a breakout without volume is not a valid breakout, and volume here qualifies
+- Three prices required: trigger above 20.20; stop 0.5–1.0 below the resistance line (19.70, about -5.3%, inside the ideal 10% band and far under the 20% hard cap); failure criterion = a close back below 20.20 means a false breakout, exit
+- The eight entry checkpoints: "it has fallen a lot" and "there is good news" are not buy reasons
+- Staging: take 20–30% of the planned size at point A, add the rest after point B (a pullback followed by a break of the prior swing high); sizing goes to `money-management-skill` (only invest one unit at a 1:3 risk-reward or better)
 
-**Sample answer**
+**Sample final answer**
 
-> This is exactly the high-frequency beginner mistake the book names: once you have a profit, every pullback means less paper profit, and the first instinct is to sell and take it. The author uses the 20→27→24→35 sequence to make the point repeatedly — a low-volume pullback to 24 is normal, and you must not sell into it.
->
-> So do not start with "should I sell". Run the four-dimension check: is price still above the trend line? Did this pullback fall back below the price where the last advance broke out? Is it still above the 200-day? Then check volume: was the advance on expanding volume, and is this pullback clearly shrinking? If all four pass, volume-price agrees and there is no danger signal, the conclusion is "normal movement" and the action is to hold and sit still.
->
-> Two elasticities have to be stated honestly. First, **the book gives no percentage threshold for "how much of a pullback counts as broken"**; the judgement is positional — has price fallen back below the previous wave trough, the breakout point, or the trend line — not "exit on an 8% or 10% drop". Second, **the book gives no single definition of how to draw the trend line or how to mark peaks and troughs**, so the same person can draw it differently a week later. Fix your drawing convention first and write it into the plan, otherwise you will recognise the same stock inconsistently.
->
-> When does it flip to an exit? A danger signal is unconditional: a sudden spike after a slow rise, a burst in volume, and a sharp reversal (the book's template is 62 yuan giving back to a 58 close in the last half hour), or a high-volume decline, or a break of support or the moving average that is not recovered. Those do not wait for the four dimensions to be worked through one by one.
+> You can follow the rules, but write the three prices down before you click. Trigger above 20.20 (you are already in the trigger zone, so your fill is whatever you actually get), stop at 19.70 (just under the box top, about -5.3% from here, inside the ideal 10% band), and the failure criterion is a close back below 20.20 — that is a false breakout, no excuses, out. Do not take the full size at once: take two or three tenths of the planned size at point A and add after point B, a pullback followed by a break of the prior swing high. Two things must be said plainly. First, if the broad market is bad the whole plan is void — "when the market is bad, buy nothing" is a veto-level premise. Second, the book gives no formula for the target; you can only anchor it qualitatively to the prior high or the resistance above, and you must check the 1:3 risk-reward yourself against that anchor — if it does not clear, do not take the trade. The above is rule-based reasoning, not investment advice.
 
 ## How these skills were generated
 
-These skills were produced with the **[cangjie-skill](https://github.com/kangarooking/cangjie-skill)** RIA-TV++ pipeline, in six stages:
+These skills were generated with the RIA-TV++ pipeline of **[cangjie-skill](https://github.com/kangarooking/cangjie-skill)**, in six stages:
 
-1. **Whole-book comprehension (Adler analysis)** — apply Mortimer Adler's analytical reading method to the book: structure, interpretation, criticism, application. This stage also fixes the selection standard: every capability unit is judged by whether it helps analyse a stock or the market and form a buy/sell decision
-2. **Parallel extraction** — several specialized extractors (frameworks, principles, cases, counter-examples, terminology) mine candidate methodology units from the source text; this book yielded 190 candidates (44 frameworks + 146 principles)
-3. **Triple verification** — every candidate must pass three checks: at least two independent in-book supports (V1 source sufficiency), the ability to answer questions the book never explicitly addresses (V2 executability, by paper walkthrough), and not being common sense (V3 task gain). All 190 candidates received a disposition, and they converged into 14 capability units
-4. **RIA++ construction** — structure each unit along R (quotation) / I (restatement in own words) / A1 (in-book case) / A2 (future trigger scenario) / E (executable steps) / B (boundaries and blind spots); the B section specifically records the author's blind spots and period limitations
-5. **Zettelkasten linking** — map dependencies, contrasts and combinations between cards, producing the capability index and routing table, with an explicit boundary between neighbouring cards (for example "which stock" belongs to selection, "when to buy" to the critical-point card, "how much" to the money card)
-6. **Trigger and output testing** — write trigger blind tests for every card (including decoys: fire when they should, stay silent when they should not) plus execution evaluation tasks; failing cards go back for rework on the description and the A2 language signals, then through regression verification
+1. **Whole-book understanding (Adler analysis)** — Mortimer Adler's analytical reading method, four steps (structural, interpretive, critical, applied), producing `BOOK_OVERVIEW.md`
+2. **Parallel extraction** — several specialised extractors (frameworks, principles, cases, counter-examples, terminology) pull candidate methodology units from the text; 190 candidates for this book
+3. **Triple verification** — every candidate must pass source sufficiency (each quote located in the text), executability (a paper walkthrough), and task gain (does it add anything to the book's own tasks); all 14 capability units passed
+4. **RIA++ construction** — structured along six dimensions: R (quotation) / I (rewritten in our own words) / A1 (case from the book) / A2 (future trigger scenarios) / E (executable steps) / B (boundaries and blind spots)
+5. **Zettelkasten linking** — dependencies, contrasts and compositions between cards are mapped into a capability index and routing table, and reuse plus trigger separability decide which cards are promoted to standalone skills
+6. **Trigger and output testing** — trigger blind tests per card (including decoys: trigger when it should, stay silent when it should not) plus execution tests; failing cards go back for rework and are regression-tested
 
 ## Testing and verification
 
-This repository publishes the test material from the generation process alongside the skills: `evals/test-prompts__*.json` holds the trigger cases for the 8 discoverable entries, `evals/trigger_*.json` holds the raw blind-test records, and `evals/test-results.md` is the item-by-item scoring log including the rework — it keeps the failures, not just the passes.
+This repository ships the generation-time test material: `evals/` holds 8 trigger suites (one per standalone skill plus one for router reachability, 52 cases in total), the per-item scoring report `test-results.md`, and the regression retest record `trigger_retest.json` cited by that report.
 
-- **Trigger blind tests**: 45 cases across 8 entries (7 skill suites plus one router-reachability suite), answered by an independent subagent that had to choose one entry among all 8 discoverable ones. First round: 42 as expected, 3 ambiguous triggers
-- **How the 3 deviations were handled**: by fixing the skills, not the tests — "margin/leverage" had no owner, so the `money-management` description and the router dispatch table gained the leverage signal; "does a cyclical stock flat for two years count as an accumulation phase" was being grabbed by `stock-picking`, so the distinction "single-stock stage judgement belongs to `cycle-phase`" was added; the third was judged a defensible boundary case and, after router re-testing confirmed correct dispatch, recorded as such. After regression: **45/45 as expected**
-- **Execution tests**: 13 tasks (including 4 missing-input / out-of-scope scenarios), each checked for reproducible output, refusal where refusal is required and questions where questions are required; the report concludes 13/13 passed with no failures
-- **Missing-input scenarios**: "is the market about to turn" with no data, "can I buy Moutai now" with no price levels, trailing stops with no cost basis — all asked for the required inputs first and none silently guessed
+- **Trigger blind tests**: the report records 45 cases in the first round, 42 as expected and 3 with trigger ambiguity; all 3 were fixed by changing the skill rather than the test (description and keywords, adjacent-capability distinctions), and after regression 45/45 matched expectations, with zero decoy tolerance failures (every in-book confusion decoy was either correctly avoided or correctly routed)
+- **Execution tests**: 13 task scenarios including 4 boundary / missing-input cases, 13/13 passed; every missing-input case asked for the data instead of guessing
+- **Failures**: none
+- **Known note**: combined "money behaviour + technical question" scenarios are dispatched by the router entry and then declined by the money-management card — that is by design
 
-## Repository layout
+## Repository structure
 
 ```text
 stock-trading-wisdom-skill/
-├── README.md                      ← Chinese version
-├── README.en.md                   ← you are reading this
-├── LICENSE                        ← MIT
-├── BOOK_OVERVIEW.md               ← whole-book comprehension (Adler four-step, stage 0 output)
-├── verified.md                    ← triple-verification conclusions for the 14 capability units
-├── single/                        ← single-entry build
+├── README.md                          ← Chinese version
+├── README.en.md                       ← you are reading this
+├── LICENSE                            ← MIT
+├── BOOK_OVERVIEW.md                   ← whole-book understanding (Adler four steps, stage 0)
+├── verified.md                        ← triple-verification results for the 14 units
+├── INDEX.md                           ← skill map: capability table, dependencies, load order
+├── bundle/                            ← distillation artefacts (card sources + verification)
+│   ├── verified.yaml                  ← authoritative definition of the 14 capabilities
+│   ├── cards/                         ← 14 capability card sources
+│   │   ├── bubble-mania-skill.md
+│   │   ├── critical-point-buy-skill.md
+│   │   ├── cycle-phase-skill.md
+│   │   ├── fundamental-check-skill.md
+│   │   ├── ma250-system-skill.md
+│   │   ├── manipulation-signs-skill.md
+│   │   ├── market-regime-skill.md
+│   │   ├── money-management-skill.md
+│   │   ├── motion-normality-skill.md
+│   │   ├── psych-discipline-skill.md
+│   │   ├── return-allocation-skill.md
+│   │   ├── sell-trailing-stop-skill.md
+│   │   ├── stage-selftest-skill.md
+│   │   └── stock-picking-skill.md
+│   └── book/
+│       ├── glossary.md
+│       └── overview.md
+├── single/                            ← single-entry mode
 │   └── stock-trading-wisdom-skill/
-│       ├── SKILL.md               ← entry: triggers + routing table + loading rules
-│       ├── BUILD_MANIFEST.json    ← build manifest and file hashes
+│       ├── SKILL.md                   ← entry: triggers + routing table + load rules
+│       ├── BUILD_MANIFEST.json        ← build manifest with file hashes
 │       └── references/
-│           ├── overview.md        ← whole-book overview
-│           ├── capability-index.md  ← full intent and keyword index
-│           ├── cheatsheet.md      ← decision-rule quick reference
-│           ├── glossary.md        ← glossary
-│           └── capabilities/      ← 14 capability cards
-├── pack/                          ← multi-entry build (compact pack)
+│           ├── overview.md            ← whole-book overview
+│           ├── capability-index.md    ← full intent and keyword index
+│           ├── cheatsheet.md          ← decision rules at a glance
+│           ├── glossary.md            ← glossary
+│           └── capabilities/          ← 14 capability cards (content mirrors bundle/cards)
+│               ├── bubble-mania-skill.md
+│               ├── critical-point-buy-skill.md
+│               ├── cycle-phase.md
+│               ├── fundamental-check.md
+│               ├── ma250-system.md
+│               ├── manipulation-signs.md
+│               ├── market-regime-skill.md
+│               ├── money-management-skill.md
+│               ├── motion-normality-skill.md
+│               ├── psych-discipline.md
+│               ├── return-allocation.md
+│               ├── sell-trailing-stop-skill.md
+│               ├── stage-selftest.md
+│               └── stock-picking-skill.md
+├── pack/                              ← multi-entry mode (compact pack)
 │   ├── BUILD_MANIFEST.json
-│   ├── capability-destinations.json
+│   ├── capability-destinations.json   ← destination table for the 14 capabilities
 │   ├── stock-trading-wisdom-skill-router/
-│   │   ├── SKILL.md               ← source router entry
-│   │   └── references/            ← 14 cards + indexes, called by the router
+│   │   ├── SKILL.md                   ← source router entry
+│   │   └── references/                ← the four index files + 14 cards, for internal use
+│   │       ├── overview.md
+│   │       ├── capability-index.md
+│   │       ├── cheatsheet.md
+│   │       ├── glossary.md
+│   │       └── capabilities/
+│   │           ├── bubble-mania-skill.md
+│   │           ├── critical-point-buy-skill.md
+│   │           ├── cycle-phase.md
+│   │           ├── fundamental-check.md
+│   │           ├── ma250-system.md
+│   │           ├── manipulation-signs.md
+│   │           ├── market-regime-skill.md
+│   │           ├── money-management-skill.md
+│   │           ├── motion-normality-skill.md
+│   │           ├── psych-discipline.md
+│   │           ├── return-allocation.md
+│   │           ├── sell-trailing-stop-skill.md
+│   │           ├── stage-selftest.md
+│   │           └── stock-picking-skill.md
 │   ├── motion-normality-skill/
 │   │   └── SKILL.md
 │   ├── critical-point-buy-skill/
@@ -169,8 +211,9 @@ stock-trading-wisdom-skill/
 │   │   └── SKILL.md
 │   └── bubble-mania-skill/
 │       └── SKILL.md
-└── evals/                         ← trigger blind tests and execution evaluation records
-    ├── test-results.md            ← item-by-item scoring and rework log
+└── evals/                             ← trigger suites and test results
+    ├── test-results.md                ← per-item scoring and fix log
+    ├── trigger_retest.json            ← regression retest after fixes
     ├── test-prompts__motion-normality.json
     ├── test-prompts__critical-point-buy.json
     ├── test-prompts__sell-trailing-stop.json
@@ -178,14 +221,10 @@ stock-trading-wisdom-skill/
     ├── test-prompts__stock-picking.json
     ├── test-prompts__market-regime.json
     ├── test-prompts__bubble-mania.json
-    ├── test-prompts__chaogu-zhihui-router.json
-    ├── trigger_T1.json
-    ├── trigger_T2.json
-    ├── trigger_T3.json
-    └── trigger_retest.json
+    └── test-prompts__stock-trading-wisdom-skill-router.json
 ```
 
-## Usage
+## How to use
 
 Clone the repository first:
 
@@ -193,7 +232,7 @@ Clone the repository first:
 git clone https://github.com/raphael-y7/stock-trading-wisdom-skill.git
 ```
 
-### Install single (recommended first try)
+### Install single (try this first)
 
 ```bash
 # macOS / Linux
@@ -207,7 +246,7 @@ Copy-Item -Recurse .\stock-trading-wisdom-skill\single\stock-trading-wisdom-skil
 
 ### Install pack
 
-Copy only the directories that contain a `SKILL.md`; do not copy the two JSON files under `pack/` into your skills directory:
+Copy only the directories that contain `SKILL.md`; do not copy the two json files under `pack/` into your skills directory:
 
 ```bash
 # macOS / Linux
@@ -230,24 +269,22 @@ $dest = "$env:USERPROFILE\.agents\skills"
   ForEach-Object { Copy-Item -Recurse -LiteralPath (Join-Path $pack $_) -Destination $dest }
 ```
 
-> `~/.agents/skills` is the DSH skills directory; with another agent, use its own skills directory (for example `~/.claude/skills` for Claude Code).
+> `~/.agents/skills` is the DSH skills directory; with another agent, use its own skills directory (Claude Code, for example, uses `~/.claude/skills`).
 
-### How to verify the install
+### How to check it works
 
-Ask: "I have a profit on this stock and it just pulled back on light volume — should I sell first?" If the agent enters the four-dimension plus volume-price check and returns something like "normal movement → hold and sit still" with item-by-item evidence, instead of generic technical commentary, the install works. With the single build it reads the entry first and then routes to a card; with the pack build the matching capability is hit directly.
+After installing, ask "this stock broke support on volume and snapped back — washout or distribution, can I keep holding it?" and see whether the agent goes straight into the four-dimension plus volume check of `motion-normality-skill` instead of giving you generic technical analysis. With single installed it reads the entry first and then loads a card by the routing table; with pack installed the capability is matched directly.
 
-## Sources
+## Source
 
-- *The Wisdom of Stock Trading* by Chen Jiangting
-- Distilled from the whole book, producing 14 capability cards
+- *The Wisdom of Stock Trading* (《炒股的智慧》) by 陈江挺
 
 ## Notice
 
-This repository publishes distilled skills, indexes and rule quick references only. It contains no PDF, EPUB, OCR files, screenshots or full-book transcripts of the source book. Quotations that appear in the capability cards serve solely to attribute methodology and keep the material auditable.
+This repository publishes only the distilled skills, indexes and quick-reference material. It contains no PDF, EPUB, OCR files, screenshots or full-book transcript. Quotations inside the cards serve solely to attribute the methodology and keep it auditable.
 
-All numeric criteria in the book (the 10% and 20% stop bounds, the 1:3 risk-reward ratio, the 60%–70% win rate, 6–8 slices of capital, the 250-day average with a 5%–8% stop, "nine wins out of ten") are the author's case- and experience-based rules without statistical backtesting; test them on your own instruments and declare the convention you use. Nothing in this repository is investment advice.
+Every numeric rule in the book (10% ideal stop / 20% hard cap, the 200-day and 250-day moving averages, the 1:3 risk-reward ratio, splitting a beginner's capital into 6–8 units, and so on) is an empirical generalisation by the author. The book offers no statistical backtest, so test any rule on your own instruments and state the convention you use. Nothing in this repository is investment advice.
 
 ## License
 
 [MIT](./LICENSE)
-

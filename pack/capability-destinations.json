@@ -35,31 +35,31 @@
     },
     "cap.stock-trading-wisdom-skill.cycle-phase": {
       "served_by": "stock-trading-wisdom-skill-router",
-      "card": "stock-trading-wisdom-skill-router/references/capabilities/cycle-phase-skill.md"
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/cycle-phase.md"
     },
     "cap.stock-trading-wisdom-skill.psych-discipline": {
       "served_by": "stock-trading-wisdom-skill-router",
-      "card": "stock-trading-wisdom-skill-router/references/capabilities/psych-discipline-skill.md"
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/psych-discipline.md"
     },
     "cap.stock-trading-wisdom-skill.stage-selftest": {
       "served_by": "stock-trading-wisdom-skill-router",
-      "card": "stock-trading-wisdom-skill-router/references/capabilities/stage-selftest-skill.md"
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/stage-selftest.md"
     },
     "cap.stock-trading-wisdom-skill.manipulation-signs": {
       "served_by": "stock-trading-wisdom-skill-router",
-      "card": "stock-trading-wisdom-skill-router/references/capabilities/manipulation-signs-skill.md"
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/manipulation-signs.md"
     },
     "cap.stock-trading-wisdom-skill.return-allocation": {
       "served_by": "stock-trading-wisdom-skill-router",
-      "card": "stock-trading-wisdom-skill-router/references/capabilities/return-allocation-skill.md"
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/return-allocation.md"
     },
     "cap.stock-trading-wisdom-skill.ma250-system": {
       "served_by": "stock-trading-wisdom-skill-router",
-      "card": "stock-trading-wisdom-skill-router/references/capabilities/ma250-system-skill.md"
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/ma250-system.md"
     },
     "cap.stock-trading-wisdom-skill.fundamental-check": {
       "served_by": "stock-trading-wisdom-skill-router",
-      "card": "stock-trading-wisdom-skill-router/references/capabilities/fundamental-check-skill.md"
+      "card": "stock-trading-wisdom-skill-router/references/capabilities/fundamental-check.md"
     }
   }
 }
